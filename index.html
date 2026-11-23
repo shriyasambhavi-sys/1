@@ -112,6 +112,13 @@
     background: #ffffff13;
     border: 1px solid #ffffff24;
     font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .count:hover {
+    background: #ffffff22;
+    border-color: #ffffff44;
   }
 
   /* Main Layout & Navigation */
@@ -704,10 +711,10 @@
       </div>
     </div>
     <div class="countrow">
-      <span class="count" id="jeeCount">JEE countdown</span>
-      <span class="count" id="boardCount">Boards countdown</span>
-      <span class="count" id="cuetCount">CUET countdown</span>
-      <span class="count" id="seasonCount">Season end</span>
+      <span class="count" id="jeeCount" onclick="focusExamSetting('jeeDate')" title="Click to adjust JEE date in Settings">JEE countdown</span>
+      <span class="count" id="boardCount" onclick="focusExamSetting('boardDate')" title="Click to adjust Boards date in Settings">Boards countdown</span>
+      <span class="count" id="cuetCount" onclick="focusExamSetting('cuetDate')" title="Click to adjust CUET date in Settings">CUET countdown</span>
+      <span class="count" id="seasonCount" onclick="focusExamSetting('endDate')" title="Click to adjust season end date in Settings">Season end</span>
     </div>
   </div>
 </header>
@@ -1335,6 +1342,9 @@ function loadState() {
     return {
       ...baseState(),
       ...s,
+      jeeDate: s.jeeDate || "2027-01-20",
+      boardDate: s.boardDate || "2027-02-16",
+      cuetDate: s.cuetDate || "2027-05-15",
       chapters: { ...defaultChapters, ...s.chapters },
       plan: s.plan || makePlan(s.startDate || "2026-11-22", s.endDate || "2027-05-31")
     };
@@ -1348,9 +1358,9 @@ function baseState() {
     startDate: "2026-11-22",
     endDate: "2027-05-31",
     phase2Date: "2027-03-01",
-    jeeDate: "",
-    boardDate: "",
-    cuetDate: "",
+    jeeDate: "2027-01-20",
+    boardDate: "2027-02-16",
+    cuetDate: "2027-05-15",
     selectedDate: todayStr(),
     plan: makePlan("2026-11-22", "2027-05-31"),
     chapters: defaultChapters,
@@ -1360,6 +1370,21 @@ function baseState() {
     testResults: [],
     backlog: []
   };
+}
+// ... existing code ... -->
+function goScreen(n) {
+  screen(n);
+}
+
+function focusExamSetting(inputId) {
+  screen("settings");
+  setTimeout(() => {
+    const el = document.getElementById(inputId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.focus();
+    }
+  }, 50);
 }
 
 function save() {
@@ -1394,7 +1419,7 @@ function roadmapDay(date) {
 
 function phaseFor(date) {
   if (date >= "2027-04-01") return "Phase 3 · Full CUET (PCM + English + GAT)";
-  if (date >= (state.phase2Date || "2027-03-01")) return "Phase 2 · Post-Boards CUET (PCM)";
+  if (date >= "2027-03-01") return "Phase 2 · Post-Boards CUET (PCM)";
   if (date >= "2027-02-24") return "Phase 1 · Final Board buffer";
   if (roadmapDay(date) <= 70) return "Phase 1 · Syllabus sprint";
   if (roadmapDay(date) <= 94) return "Phase 1 · Boards consolidation";
@@ -1408,7 +1433,8 @@ function taskList(date) {
 
 function screen(name) {
   document.querySelectorAll(".tabscreen").forEach(x => x.classList.remove("active"));
-  document.getElementById(name).classList.add("active");
+  const target = document.getElementById(name);
+  if (target) target.classList.add("active");
   document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("active", b.dataset.screen === name));
   renderAll();
 }
@@ -1416,10 +1442,6 @@ function screen(name) {
 document.querySelectorAll(".nav button").forEach(b => {
   b.addEventListener("click", () => screen(b.dataset.screen));
 });
-
-function goScreen(n) {
-  screen(n);
-}
 
 function moveDate(n) {
   let d = dateObj(state.selectedDate);
@@ -1433,7 +1455,7 @@ function jumpToday() {
   save();
 }
 
-function escapeHTML(s) {
+function escape(s) {
   return String(s || "").replace(/[&<>"']/g, c => ({
     "&": "&amp;",
     "<": "&lt;",
@@ -1444,24 +1466,20 @@ function escapeHTML(s) {
 }
 
 function taskTag(s) {
-  return s === "Physics" ? "p"
-    : s === "Chemistry" ? "c"
-    : (s === "English" || s === "GAT") ? "e"
-    : s === "Test" ? "t"
-    : "";
+  return s === "Physics" ? "p" : s === "Chemistry" ? "c" : (s === "English" || s === "GAT") ? "e" : s === "Test" ? "t" : "";
 }
 
 function taskHTML(t, date, i, compact = false) {
   return `<div class="task ${t.done ? "done" : ""}">
     <input type="checkbox" ${t.done ? "checked" : ""} onchange="toggleTask('${date}',${i},this.checked)">
     <div class="taskbody">
-      <b>${escapeHTML(t.title)}</b>
-      <span class="tag ${taskTag(t.subject)}">${escapeHTML(t.subject)}</span>
-      <div class="muted">${t.minutes || 60} min · ${escapeHTML(t.kind || "Task")}</div>
+      <b>${escape(t.title)}</b>
+      <span class="tag ${taskTag(t.subject)}">${escape(t.subject)}</span>
+      <div class="muted">${t.minutes || 60} min · ${escape(t.kind || "Task")}</div>
     </div>
     ${compact ? "" : `<div class="taskactions">
       <button class="mini" onclick="editTask('${date}',${i})">Edit</button>
-      <button class="mini" onclick="removeTask('${date}',${i})" title="Delete task">×</button>
+      <button class="mini" onclick="removeTask('${date}',${i})">×</button>
     </div>`}
   </div>`;
 }
@@ -1484,29 +1502,24 @@ function removeTask(date, i) {
   save();
 }
 
-// Custom modal replacement for prompt() when editing task text
 function editTask(date, i) {
   let t = state.plan[date][i];
   document.getElementById("dialogContent").innerHTML = `
-    <h3>Edit task</h3>
-    <label class="fieldlabel" style="margin-top:10px">Task description</label>
-    <input class="field" id="editTaskInput" value="${escapeHTML(t.title)}">
-    <div class="flex" style="justify-content:flex-end;margin-top:14px">
+    <h3>Edit Task</h3>
+    <label class="fieldlabel">Task description</label>
+    <input class="field" id="editTaskInput" value="${escape(t.title)}">
+    <div class="flex" style="margin-top:14px;justify-content:flex-end">
       <button class="btn light" onclick="closeDialog()">Cancel</button>
       <button class="btn" onclick="commitEditTask('${date}',${i})">Save changes</button>
-    </div>
-  `;
+    </div>`;
   document.getElementById("dialogModal").classList.add("open");
-  setTimeout(() => {
-    const inp = document.getElementById("editTaskInput");
-    if (inp) { inp.focus(); inp.select(); }
-  }, 50);
+  setTimeout(() => document.getElementById("editTaskInput")?.focus(), 40);
 }
 
 function commitEditTask(date, i) {
-  const inp = document.getElementById("editTaskInput");
-  if (inp && inp.value.trim() !== "") {
-    state.plan[date][i].title = inp.value.trim();
+  const val = document.getElementById("editTaskInput").value.trim();
+  if (val) {
+    state.plan[date][i].title = val;
     save();
   }
   closeDialog();
@@ -1527,7 +1540,7 @@ function addManualTask() {
   });
   document.getElementById("addTaskText").value = "";
   save();
-  showNotice("Added task to " + fmt(state.selectedDate));
+  showNotice("Task added to " + fmt(state.selectedDate));
 }
 
 function rescheduleBacklog() {
@@ -1537,11 +1550,9 @@ function rescheduleBacklog() {
     showNotice("No unfinished tasks for this day.");
     return;
   }
-
   let cursor = dateObj(from);
   cursor.setDate(cursor.getDate() + 1);
   let moved = [];
-
   tasks.forEach(t => {
     let target;
     for (let tries = 0; tries < 14; tries++) {
@@ -1555,7 +1566,6 @@ function rescheduleBacklog() {
       }
       cursor.setDate(cursor.getDate() + 1);
     }
-
     if (!state.plan[target]) state.plan[target] = [];
     let copy = {
       ...t,
@@ -1575,11 +1585,10 @@ function rescheduleBacklog() {
     cursor = dateObj(target);
     cursor.setDate(cursor.getDate() + 1);
   });
-
   state.plan[from] = taskList(from).filter(t => t.done);
   state.selectedDate = moved[0] || from;
   save();
-  showNotice(`${tasks.length} unfinished task(s) spread across ${new Set(moved).size} day(s), using the daily capacity target.`);
+  showNotice(`${tasks.length} unfinished task(s) spread across ${new Set(moved).size} day(s) within daily capacity.`);
 }
 
 function addChapterCheckboxes(subject, id) {
@@ -1588,10 +1597,9 @@ function addChapterCheckboxes(subject, id) {
     <div class="chapteritem">
       <label>
         <input type="checkbox" ${state.chapterDone[subject]?.includes(ch) ? "checked" : ""} onchange="markChapter('${subject}',${JSON.stringify(ch)},this.checked)">
-        <span>${escapeHTML(ch)}</span>
+        <span>${escape(ch)}</span>
       </label>
-    </div>
-  `).join("");
+    </div>`).join("");
 }
 
 function markChapter(s, ch, v) {
@@ -1605,7 +1613,7 @@ function subjectProgress() {
   return ["Maths", "Physics", "Chemistry"].map(s => {
     let n = state.chapters[s].length;
     let c = state.chapterDone[s]?.length || 0;
-    let p = Math.round(c / n * 100);
+    let p = Math.round((c / n) * 100);
     let cl = s === "Physics" ? "p" : s === "Chemistry" ? "c" : "";
     return `<div class="subjectline">
       <span class="dot ${cl}"></span>
@@ -1620,16 +1628,14 @@ function subjectProgress() {
 function renderPlanner() {
   let d = state.selectedDate;
   let t = taskList(d);
-  let totalHours = (t.reduce((sum, x) => sum + (x.minutes || 0), 0) / 60).toFixed(1).replace(/\.0$/, "");
   document.getElementById("plannerDate").textContent = fmt(d) + ` · Day ${roadmapDay(d)}`;
-  document.getElementById("plannerPhase").textContent = phaseFor(d) + ` · ${totalHours} scheduled hours`;
+  document.getElementById("plannerPhase").textContent = phaseFor(d) + ` · ${(t.reduce((sum, x) => sum + (x.minutes || 0), 0) / 60).toFixed(1)} scheduled hours`;
   document.getElementById("plannerList").innerHTML = t.map((x, i) => taskHTML(x, d, i)).join("") || '<div class="muted">Nothing scheduled. Add a task above.</div>';
   document.getElementById("backlogList").innerHTML = state.backlog.slice(-12).reverse().map(x => `
     <div class="historyrow">
-      <b>${escapeHTML(x.task)}</b>
-      <div class="muted">${escapeHTML(x.subject)} · moved ${fmt(x.from)} → ${fmt(x.to)}</div>
-    </div>
-  `).join("") || '<div class="muted">No backlog carry-forwards recorded.</div>';
+      <b>${escape(x.task)}</b>
+      <div class="muted">${escape(x.subject)} · moved ${fmt(x.from)} → ${fmt(x.to)}</div>
+    </div>`).join("") || '<div class="muted">No backlog carry-forwards recorded.</div>';
 }
 
 function renderDashboard() {
@@ -1637,17 +1643,16 @@ function renderDashboard() {
   let t = taskList(d);
   let n = t.length;
   let c = t.filter(x => x.done).length;
-
   document.getElementById("dayMetric").textContent = roadmapDay(d);
   document.getElementById("phaseMetric").textContent = phaseFor(d);
   document.getElementById("doneMetric").textContent = `${c}/${n}`;
-  document.getElementById("dailyBar").style.width = n ? `${100 * c / n}%` : "0%";
+  document.getElementById("dailyBar").style.width = n ? `${(100 * c) / n}%` : "0%";
   document.getElementById("hoursMetric").textContent = ((state.focus[d] || []).reduce((a, x) => a + x.minutes, 0) / 60).toFixed(1) + "h";
   document.getElementById("questionsMetric").textContent = state.checkins.find(x => x.date === d)?.questions || 0;
   document.getElementById("homeTasks").innerHTML = t.slice(0, 6).map((x, i) => taskHTML(x, d, i, true)).join("") || '<div class="muted">No daily targets generated for this date.</div>';
   document.getElementById("progressSubjects").innerHTML = subjectProgress();
 
-  let pc = n ? Math.round(c / n * 100) : 0;
+  let pc = n ? Math.round((c / n) * 100) : 0;
   document.getElementById("mentorNote").textContent = pc >= 80
     ? "Strong execution. Finish the remaining tasks, then spend time on error analysis instead of adding extra work."
     : pc >= 40
@@ -1656,20 +1661,23 @@ function renderDashboard() {
 
   let latest = state.checkins[0];
   document.getElementById("latestCheck").innerHTML = latest
-    ? `<b>${fmt(latest.date)} · Day ${latest.day}</b>
-       <p style="margin:6px 0">${latest.hours} focused hours · ${latest.questions} questions</p>
-       <p style="margin:4px 0"><b>Difficulty:</b> ${escapeHTML(latest.struggle || "—")}</p>
-       <p style="margin:4px 0"><b>Next:</b> ${escapeHTML(latest.priority || "—")}</p>`
+    ? `<b>${fmt(latest.date)} · Day ${latest.day}</b><p style="margin:6px 0">${latest.hours} focused hours · ${latest.questions} questions</p><p style="margin:4px 0"><b>Difficulty:</b> ${escape(latest.struggle || "—")}</p><p style="margin:4px 0"><b>Next:</b> ${escape(latest.priority || "—")}</p>`
     : "No review saved. Use the nightly review to build your streak.";
 }
 
 function countdown(el, date, label) {
+  const node = document.getElementById(el);
+  if (!node) return;
   if (!date) {
-    document.getElementById(el).textContent = label + " · date not set";
+    node.textContent = label + " · set date";
     return;
   }
   let n = daysBetween(todayStr(), date);
-  document.getElementById(el).textContent = n >= 0 ? `${label} · ${n} days left` : `${label} · passed`;
+  node.textContent = n > 0
+    ? `${label} · ${n} day${n === 1 ? "" : "s"} left`
+    : n === 0
+    ? `${label} · today`
+    : `${label} · passed`;
 }
 
 function renderHeader() {
@@ -1679,7 +1687,7 @@ function renderHeader() {
   countdown("jeeCount", state.jeeDate, "JEE");
   countdown("boardCount", state.boardDate, "Boards");
   countdown("cuetCount", state.cuetDate, "CUET");
-  countdown("seasonCount", state.endDate, "End of study season");
+  countdown("seasonCount", state.endDate, "End of season");
   document.getElementById("heroTitle").textContent = d.getHours() < 12 ? "Good morning." : d.getHours() < 17 ? "Keep your momentum." : "A little progress still counts.";
 }
 
@@ -1700,11 +1708,12 @@ function weekRange(week) {
 function weekTasks(week) {
   let [a, b] = weekRange(week);
   let list = [];
-  for (let d = a; d <= b;) {
-    list.push(...(state.plan[d] || []));
-    let next = dateObj(d);
-    next.setDate(next.getDate() + 1);
-    d = next.toLocaleDateString("en-CA");
+  let cur = dateObj(a);
+  let last = dateObj(b);
+  while (cur <= last) {
+    let ds = cur.toLocaleDateString("en-CA");
+    list.push(...(state.plan[ds] || []));
+    cur.setDate(cur.getDate() + 1);
   }
   return list;
 }
@@ -1715,8 +1724,8 @@ function weekComplete(week) {
   return {
     done,
     total: t.length,
-    percent: t.length ? Math.round(done / t.length * 100) : 0,
-    unlock: t.length > 0 && done / t.length >= 0.7
+    percent: t.length ? Math.round((done / t.length) * 100) : 0,
+    unlock: t.length > 0 && (done / t.length) >= 0.7
   };
 }
 
@@ -1728,12 +1737,10 @@ function chaptersOfWeek(week) {
 function renderTests() {
   let totalWeeks = Math.max(1, Math.ceil((daysBetween(state.startDate, state.endDate) + 1) / 7));
   let html = "";
-
   for (let w = 1; w <= totalWeeks; w++) {
     let st = weekComplete(w);
     let [a, b] = weekRange(w);
     let record = state.testResults.find(x => x.week === w);
-
     html += `<div class="testweek ${st.unlock ? "" : "locked"}">
       <div class="flex">
         <div>
@@ -1743,9 +1750,9 @@ function renderTests() {
         <span class="weekbadge">${record ? `Score ${record.score}/${record.max}` : st.unlock ? "READY" : "LOCKED"}</span>
       </div>
       <div class="progress"><i style="width:${st.percent}%"></i></div>
-      <div class="smalltext" style="margin:10px 0"><b>Covered:</b> ${escapeHTML(chaptersOfWeek(w).slice(0, 10).join(" · ") || "CUET practice cycle")}</div>
+      <div class="smalltext" style="margin:10px 0"><b>Covered:</b> ${escape(chaptersOfWeek(w).slice(0, 10).join(" · ") || "CUET practice cycle")}</div>
       <button class="btn ${st.unlock ? "" : "light"}" ${st.unlock ? "" : "disabled"} onclick="openWeekTest(${w})">${record ? "Retake / review test" : "Start weekly test"}</button>
-      ${record ? `<div class="testresult">Last attempt: ${record.score}/${record.max} (${record.date}) · ${escapeHTML(record.note || "No notes recorded")}</div>` : ""}
+      ${record ? `<div class="testresult">Last attempt: ${record.score}/${record.max} (${record.date}) · ${escape(record.note || "")}</div>` : ""}
     </div>`;
   }
   document.getElementById("weekTests").innerHTML = html;
@@ -1756,11 +1763,10 @@ function questionTemplates(w) {
   let subj = weekTasks(w).map(t => t.subject).filter(s => ["Maths", "Physics", "Chemistry", "English", "GAT"].includes(s));
   let uniq = [...new Set(subj)];
   let prompts = [];
-
   uniq.forEach(s => {
     let ch = topics.filter(x => x.startsWith(s + ":")).map(x => x.replace(s + ": ", ""));
     if (!ch.length) return;
-    let n = (s === "Maths" || s === "Physics" || s === "Chemistry") ? 10 : 5;
+    let n = s === "Maths" ? 10 : s === "Physics" ? 10 : s === "Chemistry" ? 10 : 5;
     let forms = s === "Maths"
       ? "Solve 10 mixed problems, including NCERT/Board-style full working and CUET speed questions."
       : s === "Physics"
@@ -1770,13 +1776,7 @@ function questionTemplates(w) {
       : s === "English"
       ? "Complete a timed reading/grammar/vocabulary set."
       : "Complete timed GK/current affairs, quant, reasoning and science questions.";
-
-    prompts.push({
-      subject: s,
-      chapters: ch,
-      task: forms,
-      marks: n * 2
-    });
+    prompts.push({ subject: s, chapters: ch, task: forms, marks: n * 2 });
   });
   return prompts;
 }
@@ -1788,25 +1788,20 @@ function openWeekTest(w) {
   }
   let blue = questionTemplates(w);
   let [a, b] = weekRange(w);
-
   document.getElementById("testContent").innerHTML = `
     <h2>Week ${w} cumulative test</h2>
-    <div class="muted">${fmt(a)} — ${fmt(b)} · Chapters: ${escapeHTML(chaptersOfWeek(w).join(", ") || "Weekly practice")}</div>
-    <div class="callout" style="margin:12px 0">Test honestly, without notes. Use the blueprint below to create/attempt your questions from NCERT and your practice material. Score each subject after the attempt. The app tracks your score and mistakes; it does not invent official CUET/CBSE/JEE questions.</div>
+    <div class="muted">${fmt(a)} — ${fmt(b)} · Chapters: ${escape(chaptersOfWeek(w).join(", ") || "Weekly practice")}</div>
+    <div class="callout" style="margin:12px 0">Test honestly, without notes. Use the blueprint below to attempt questions from NCERT and your practice material, then enter your score per subject.</div>
     ${blue.map((x, i) => `
       <div class="testq">
         <b>${x.subject} · ${x.marks} suggested marks</b>
-        <p class="smalltext"><b>Coverage:</b> ${escapeHTML(x.chapters.join(", "))}</p>
+        <p class="smalltext"><b>Coverage:</b> ${escape(x.chapters.join(", "))}</p>
         <p class="smalltext">${x.task}</p>
-        <label>Score earned
-          <input class="field" type="number" min="0" max="${x.marks}" id="score${i}" value="0" style="margin-top:5px">
-        </label>
-      </div>
-    `).join("")}
+        <label>Score earned<input class="field" type="number" min="0" max="${x.marks}" id="score${i}" value="0"></label>
+      </div>`).join("")}
     <label class="fieldlabel" style="margin-top:12px">Mistake analysis / weak areas</label>
-    <textarea class="field" id="testNote" rows="3" placeholder="Note conceptual gaps, silly mistakes, or formulas to revise..."></textarea>
-    <button class="btn" style="margin-top:12px" onclick="saveWeekScore(${w},${blue.reduce((a, x) => a + x.marks, 0)},${blue.length})">Save score & analysis</button>
-  `;
+    <textarea class="field" id="testNote" rows="3"></textarea>
+    <button class="btn" style="margin-top:12px" onclick="saveWeekScore(${w},${blue.reduce((a, x) => a + x.marks, 0)},${blue.length})">Save score & analysis</button>`;
   document.getElementById("testModal").classList.add("open");
 }
 
@@ -1820,10 +1815,11 @@ function saveWeekScore(w, max, count) {
     score += Number(document.getElementById("score" + i).value || 0);
   }
   let note = document.getElementById("testNote").value;
+  state.testResults = state.testResults.filter(x => x.week !== w);
   state.testResults.unshift({ week: w, date: todayStr(), score, max, note });
   save();
   closeTest();
-  showNotice(`Week ${w} result saved: ${score}/${max}. Review the weak areas and schedule corrections.`);
+  showNotice(`Week ${w} result saved: ${score}/${max}. Review weak areas and schedule corrections.`);
 }
 
 document.getElementById("checkForm").addEventListener("submit", e => {
@@ -1842,10 +1838,11 @@ document.getElementById("checkForm").addEventListener("submit", e => {
     struggle: document.getElementById("checkStruggle").value,
     priority: document.getElementById("checkPriority").value
   };
+  state.checkins = state.checkins.filter(x => x.date !== d);
   state.checkins.unshift(entry);
   document.getElementById("savedFeedback").innerHTML = "<div class='testresult'>Saved. Tomorrow, start with your priority task and review today's mistakes before new learning.</div>";
   save();
-  showNotice("Nightly progress review saved.");
+  showNotice("Nightly progress report saved.");
 });
 
 function renderCheckins() {
@@ -1854,16 +1851,12 @@ function renderCheckins() {
   document.getElementById("checkHistory").innerHTML = state.checkins.map(x => `
     <div class="historyrow">
       <b>${fmt(x.date)} · Day ${x.day}</b>
-      <div class="muted">${x.hours} hours · ${x.questions} questions · ${escapeHTML(x.score || "No test score")}</div>
-      <p class="smalltext" style="margin:6px 0 0">
-        <b>Struggle:</b> ${escapeHTML(x.struggle || "—")}<br>
-        <b>Tomorrow:</b> ${escapeHTML(x.priority || "—")}
-      </p>
-    </div>
-  `).join("") || '<div class="muted">Saved reviews will show here.</div>';
+      <div class="muted">${x.hours} hours · ${x.questions} questions · ${escape(x.score || "No test score")}</div>
+      <p class="smalltext"><b>Struggle:</b> ${escape(x.struggle || "—")}<br><b>Tomorrow:</b> ${escape(x.priority || "—")}</p>
+    </div>`).join("") || '<div class="muted">Saved reviews will show here.</div>';
 }
 
-/* Focus Studio Timer */
+// Focus Timer
 let timer = 25 * 60;
 let interval = null;
 let chosen = 25;
@@ -1914,7 +1907,7 @@ function completeSession(min) {
   state.focus[d].push({ minutes: min, at: new Date().toLocaleTimeString() });
   save();
   document.getElementById("timerLabel").textContent = "Logged. Take a mindful break.";
-  showNotice(`Logged ${min} minute focus session.`);
+  showNotice(`Logged ${min} min focus session.`);
 }
 
 document.getElementById("timerToggle").onclick = startTimer;
@@ -1934,19 +1927,6 @@ document.querySelectorAll(".preset").forEach(b => {
   };
 });
 
-function renderTimer() {
-  let f = state.focus[todayStr()] || [];
-  document.getElementById("sessionCount").textContent = f.length;
-  document.getElementById("timerHours").textContent = (f.reduce((a, x) => a + x.minutes, 0) / 60).toFixed(1);
-  document.getElementById("timerStreak").textContent = focusStreak();
-  document.getElementById("focusLog").innerHTML = f.slice().reverse().map(x => `
-    <div class="historyrow">
-      <b>${x.minutes} min focus</b>
-      <div class="muted">${x.at}</div>
-    </div>
-  `).join("") || '<div class="muted">No sessions logged today. Start a timer.</div>';
-}
-
 function focusStreak() {
   let n = 0;
   let d = dateObj(todayStr());
@@ -1959,13 +1939,24 @@ function focusStreak() {
   return n;
 }
 
-/* Settings & Backup */
+function renderTimer() {
+  let f = state.focus[todayStr()] || [];
+  document.getElementById("sessionCount").textContent = f.length;
+  document.getElementById("timerHours").textContent = (f.reduce((a, x) => a + x.minutes, 0) / 60).toFixed(1);
+  document.getElementById("timerStreak").textContent = focusStreak();
+  document.getElementById("focusLog").innerHTML = f.map(x => `
+    <div class="historyrow">
+      <b>${x.minutes} min focus</b>
+      <div class="muted">${x.at}</div>
+    </div>`).join("") || '<div class="muted">No sessions logged today. Start a timer.</div>';
+}
+
 function saveExamDates() {
   state.jeeDate = document.getElementById("jeeDate").value;
   state.boardDate = document.getElementById("boardDate").value;
   state.cuetDate = document.getElementById("cuetDate").value;
   save();
-  showNotice("Exam dates saved.");
+  showNotice("Exam dates saved and countdowns updated.");
 }
 
 function saveSeason() {
@@ -1973,7 +1964,7 @@ function saveSeason() {
   let en = document.getElementById("endDate").value;
   let ph = document.getElementById("phase2Date").value;
   if (!st || !en || st > en) {
-    showNotice("Choose valid season dates.");
+    showNotice("Choose valid season start and end dates.");
     return;
   }
   state.startDate = st;
@@ -1982,7 +1973,7 @@ function saveSeason() {
   state.plan = makePlan(st, en);
   state.selectedDate = todayStr();
   save();
-  showNotice("Roadmap regenerated. Existing chapter check-offs, check-ins, focus logs, and test scores were preserved.");
+  showNotice("Roadmap regenerated. Existing check-offs, check-ins, focus logs, and scores were preserved.");
 }
 
 function exportBackup() {
@@ -1992,7 +1983,7 @@ function exportBackup() {
   a.download = "study-command-backup-v2.json";
   a.click();
   URL.revokeObjectURL(a.href);
-  showNotice("Backup downloaded.");
+  showNotice("Backup file downloaded.");
 }
 
 function importBackup(e) {
@@ -2006,27 +1997,24 @@ function importBackup(e) {
       save();
       showNotice("Backup restored successfully.");
     } catch {
-      showNotice("Invalid backup file.");
+      showNotice("Invalid backup JSON file.");
     }
   };
   r.readAsText(f);
-  e.target.value = "";
 }
 
-// Custom modal replacement for confirm() before resetting all data
 function openResetConfirm() {
   document.getElementById("dialogContent").innerHTML = `
     <h3>Reset all app data?</h3>
-    <p class="smalltext" style="margin:10px 0">This permanently deletes all progress, check-ins, focus logs, and scores from this browser. Download a backup first if needed.</p>
-    <div class="flex" style="justify-content:flex-end;margin-top:16px">
+    <p class="smalltext muted">This clears all progress, check-ins, focus logs, and custom tasks stored in this browser. Download a backup first if needed.</p>
+    <div class="flex" style="margin-top:16px;justify-content:flex-end">
       <button class="btn light" onclick="closeDialog()">Cancel</button>
-      <button class="btn warn" onclick="confirmResetAll()">Yes, reset everything</button>
-    </div>
-  `;
+      <button class="btn warn" onclick="confirmResetAll()">Reset everything</button>
+    </div>`;
   document.getElementById("dialogModal").classList.add("open");
 }
 
-function confirmResetAll() 
+function confirmResetAll() {
   localStorage.removeItem(STORE);
   state = baseState();
   save();
