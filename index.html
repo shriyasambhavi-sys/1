@@ -1,305 +1,2318 @@
-<!-- ... existing code ... -->
-<style>
-:root{--forest:#263f35;--moss:#54725e;--sage:#dce8dc;--sage2:#edf3ec;--cream:#f7f5ed;--paper:#fffefa;--ink:#26342d;--muted:#778078;--line:#e7e7dd;--gold:#d6bd7e;--rose:#ead9d5;--blue:#dce8f0;--lav:#e8e2f0;--shadow:0 12px 36px #263f350a}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:linear-gradient(135deg,#263f35,#3e5e4c);color:#f8f8f1;padding:25px 22px 27px}.wrap{max-width:1150px;margin:auto}.topline{display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-size:12px;letter-spacing:.2em;font-weight:800}.topline small{opacity:.7}.hero{margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.hero h1{font-family:Georgia,serif;font-weight:500;letter-spacing:-.03em;font-size:clamp(32px,5vw,50px);margin:0 0 7px}.hero p{color:#d7e3d9;margin:0}.datebox{background:#ffffff15;border:1px solid #ffffff24;border-radius:16px;padding:12px 15px;min-width:130px;text-align:right}.datebox strong{display:block;font-size:22px}.countrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.count{border-radius:100px;padding:8px 12px;background:#ffffff13;border:1px solid #ffffff24;font-size:12px;cursor:pointer;transition:background .15s}.count:hover{background:#ffffff24}
-main{max-width:1150px;margin:auto;padding:18px 20px 40px}.nav{display:flex;gap:8px;overflow:auto;margin-bottom:17px;padding-bottom:5px}.nav button{white-space:nowrap;border:1px solid var(--line);background:var(--paper);border-radius:100px;padding:10px 14px;color:var(--ink);cursor:pointer}.nav button.active{background:var(--forest);border-color:var(--forest);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.s12{grid-column:span 12}.s8{grid-column:span 8}.s6{grid-column:span 6}.s4{grid-column:span 4}.s3{grid-column:span 3}
-h2{font-size:17px;margin:0 0 12px}h3{font-size:14px;margin:0 0 10px}.eyebrow{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:800}.muted{color:var(--muted);font-size:12px}.metric{font-size:30px;font-weight:750;letter-spacing:-.04em;margin:4px 0}.flex{display:flex;align-items:center;justify-content:space-between;gap:10px}.progress{height:8px;background:#e8ebe4;border-radius:100px;overflow:hidden;margin-top:8px}.progress i{display:block;height:100%;width:0;background:var(--moss);border-radius:100px;transition:width .3s}
-.subjectline{display:flex;gap:9px;align-items:center;margin:12px 0}.dot{width:9px;height:9px;border-radius:50%;background:var(--moss)}.dot.p{background:#6e91af}.dot.c{background:#b9944e}.dot.e{background:#9279a8}
-.btn{border:0;border-radius:11px;padding:10px 13px;background:var(--forest);color:white;font-size:13px;cursor:pointer}.btn.light{background:var(--sage2);color:var(--forest)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn.warn{background:#f3e2df;color:#854b42}.btn:disabled{opacity:.4;cursor:not-allowed}
-.task{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.task input{margin-top:3px;accent-color:var(--moss);width:17px;height:17px}.task.done .taskbody{opacity:.55;text-decoration:line-through}.taskbody{flex:1}.tag{display:inline-block;border-radius:7px;padding:4px 7px;font-size:10px;background:var(--sage2);margin-left:5px}.tag.p{background:var(--blue)}.tag.c{background:#f3ecd9}.tag.e{background:var(--lav)}.tag.t{background:var(--rose)}.dayheading{font-family:Georgia,serif;font-size:23px;font-weight:500}.taskactions{display:flex;gap:5px}.mini{font-size:11px;border:0;background:#f0f0e9;border-radius:8px;padding:5px 8px;cursor:pointer}
-.tabscreen{display:none}.tabscreen.active{display:block}.callout{background:#f4efdf;border-radius:13px;padding:12px;color:#6c5932;font-size:12px;line-height:1.5}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.field{width:100%;padding:10px 11px;border:1px solid var(--line);background:#fff;border-radius:10px;color:var(--ink);font:inherit}.fieldlabel{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.chapteritem{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.chapteritem:last-child{border:0}.chapteritem input{accent-color:var(--moss)}.timerwrap{background:linear-gradient(140deg,#e8eee5,#f7f4e8);border-radius:17px;padding:15px;text-align:center}.timerdisplay{font-family:Georgia,serif;font-size:57px;letter-spacing:.05em;margin:8px}.timer-ring{width:210px;height:210px;margin:4px auto 12px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--moss) var(--ring,0%),#d8e2d5 0);position:relative}.timer-ring:before{content:"";position:absolute;inset:10px;border-radius:50%;background:#f3f5ec}.timer-ring>div{position:relative}.timercontrols{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}.preset{border:1px solid #d3ded1;background:#fff9;border-radius:100px;padding:7px 11px;font-size:12px;cursor:pointer}.preset.active{background:var(--forest);color:white}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.statbox{background:var(--sage2);border-radius:12px;padding:11px;text-align:center}.statbox strong{font-size:19px;display:block}.statbox span{font-size:10px;color:var(--muted)}.testweek{border:1px solid var(--line);border-radius:15px;padding:14px;margin:10px 0}.testweek.locked{opacity:.58}.testweek h3{margin-bottom:5px}.testq{padding:12px 0;border-bottom:1px solid var(--line)}.testq label{display:block;margin:7px 0;padding:7px 9px;border:1px solid var(--line);border-radius:9px;font-size:13px}.testresult{padding:10px;border-radius:10px;background:var(--sage2);margin-top:9px;font-size:13px}.historyrow{padding:11px 0;border-bottom:1px solid var(--line)}.smalltext{font-size:12px;line-height:1.5}.modalback{position:fixed;inset:0;background:#15251dcc;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modalback.open{display:flex}.modal{max-width:600px;width:100%;max-height:85vh;overflow:auto;background:var(--paper);border-radius:20px;padding:19px}.modalclose{float:right;border:0;background:#eee;border-radius:50%;width:30px;height:30px;cursor:pointer}.hidden{display:none!important}.foot{text-align:center;color:var(--muted);font-size:11px;padding:25px}.weekbadge{background:var(--lav);border-radius:8px;padding:5px 8px;font-size:11px}
-.wtable{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}.wtable th,.wtable td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}.wtable th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
-@media(max-width:780px){.s8,.s6,.s4,.s3{grid-column:span 12}.hero{align-items:flex-start;flex-direction:column}.datebox{text-align:left}.formgrid{grid-template-columns:1fr}.timerdisplay{font-size:48px}main{padding:14px}.card{padding:14px}}
-</style></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#263f35">
+  <title>Study Command | Personal Academic Season</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Botanical & editorial color tokens */
+    :root {
+      --forest: #263f35;
+      --moss: #54725e;
+      --sage: #dce8dc;
+      --sage2: #edf3ec;
+      --cream: #f7f5ed;
+      --paper: #fffefa;
+      --ink: #26342d;
+      --muted: #778078;
+      --line: #e7e7dd;
+      --gold: #d6bd7e;
+      --rose: #ead9d5;
+      --blue: #dce8f0;
+      --lav: #e8e2f0;
+      --shadow: 0 12px 36px rgba(38, 63, 53, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #263f35, #3e5e4c);
+      color: #f8f8f1;
+      padding: 25px 22px 27px;
+    }
+
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      font-weight: 800;
+    }
+
+    .brand span {
+      font-weight: 400;
+      opacity: 0.65;
+    }
+
+    .topline small {
+      opacity: 0.78;
+      font-size: 12px;
+    }
+
+    .hero {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      font-size: clamp(32px, 5vw, 50px);
+      margin: 0 0 7px;
+      line-height: 1.08;
+    }
+
+    .hero p {
+      color: #d7e3d9;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .datebox {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 12px 15px;
+      min-width: 130px;
+      text-align: right;
+    }
+
+    .datebox strong {
+      display: block;
+      font-size: 22px;
+      margin-top: 2px;
+    }
+
+    .countrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .count {
+      border-radius: 100px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .count:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 18px 20px 40px;
+      width: 100%;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 17px;
+      padding-bottom: 5px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav button {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 100px;
+      padding: 10px 14px;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .nav button.active {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: #ffffff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 17px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .s12 { grid-column: span 12; }
+    .s8  { grid-column: span 8; }
+    .s6  { grid-column: span 6; }
+    .s4  { grid-column: span 4; }
+    .s3  { grid-column: span 3; }
+
+    h2 {
+      font-size: 17px;
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 14px;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric {
+      font-size: 30px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      margin: 4px 0;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .progress {
+      height: 8px;
+      background: #e8ebe4;
+      border-radius: 100px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--moss);
+      border-radius: 100px;
+      transition: width 0.3s ease;
+    }
+
+    .subjectline {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--moss);
+      flex-shrink: 0;
+    }
+
+    .dot.p { background: #6e91af; }
+    .dot.c { background: #b9944e; }
+    .dot.e { background: #9279a8; }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 13px;
+      background: var(--forest);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+
+    .btn.light {
+      background: var(--sage2);
+      color: var(--forest);
+    }
+
+    .btn.outline {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .btn.warn {
+      background: #f3e2df;
+      color: #854b42;
+    }
+
+    .btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .task:last-child {
+      border-bottom: 0;
+    }
+
+    .task input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--moss);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .task.done .taskbody {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+
+    .taskbody {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 7px;
+      padding: 4px 7px;
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--sage2);
+      color: var(--forest);
+      margin-left: 6px;
+    }
+
+    .tag.p { background: var(--blue); color: #2b475c; }
+    .tag.c { background: #f3ecd9; color: #6c5525; }
+    .tag.e { background: var(--lav); color: #4c3b5e; }
+    .tag.t { background: var(--rose); color: #753b33; }
+
+    .dayheading {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 23px;
+      font-weight: 500;
+      margin: 2px 0 0;
+    }
+
+    .taskactions {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .mini {
+      font-size: 11px;
+      border: 0;
+      background: #f0f0e9;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .mini:hover {
+      background: var(--sage2);
+    }
+
+    .tabscreen {
+      display: none;
+    }
+
+    .tabscreen.active {
+      display: block;
+    }
+
+    .callout {
+      background: #f4efdf;
+      border-radius: 13px;
+      padding: 12px;
+      color: #6c5932;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .banner {
+      background: var(--sage2);
+      border: 1px solid var(--sage);
+      color: var(--forest);
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: 10px;
+    }
+
+    .banner.warn {
+      background: #f8ece9;
+      border-color: var(--rose);
+      color: #7d3f36;
+    }
+
+    .formgrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .field {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      border-radius: 10px;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .field:focus {
+      outline: 2px solid rgba(84, 114, 94, 0.25);
+      border-color: var(--moss);
+    }
+
+    .fieldlabel {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .chapteritem {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .chapteritem:last-child {
+      border-bottom: 0;
+    }
+
+    .chapteritem label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .chapteritem input {
+      accent-color: var(--moss);
+      margin-top: 2px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .timerwrap {
+      background: linear-gradient(140deg, #e8eee5, #f7f4e8);
+      border-radius: 17px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .timerdisplay {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 57px;
+      letter-spacing: 0.05em;
+      margin: 8px;
+      line-height: 1.05;
+    }
+
+    .timer-ring {
+      width: 210px;
+      height: 210px;
+      margin: 4px auto 12px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--moss) var(--ring, 0%), #d8e2d5 0);
+      position: relative;
+    }
+
+    .timer-ring::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      background: #f3f5ec;
+    }
+
+    .timer-ring > div {
+      position: relative;
+      z-index: 1;
+    }
+
+    .timercontrols {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .preset {
+      border: 1px solid #d3ded1;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--ink);
+      border-radius: 100px;
+      padding: 7px 11px;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .preset.active {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: #ffffff;
+    }
+
+    .statgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .statbox {
+      background: var(--sage2);
+      border-radius: 12px;
+      padding: 11px;
+      text-align: center;
+    }
+
+    .statbox strong {
+      font-size: 19px;
+      display: block;
+    }
+
+    .statbox span {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .testweek {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 14px;
+      margin: 10px 0;
+      background: var(--paper);
+    }
+
+    .testweek.locked {
+      opacity: 0.62;
+    }
+
+    .testweek h3 {
+      margin-bottom: 5px;
+    }
+
+    .testq {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .testresult {
+      padding: 10px;
+      border-radius: 10px;
+      background: var(--sage2);
+      margin-top: 9px;
+      font-size: 13px;
+    }
+
+    .historyrow {
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .historyrow:last-child {
+      border-bottom: 0;
+    }
+
+    .smalltext {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .modalback {
+      position: fixed;
+      inset: 0;
+      background: rgba(21, 37, 29, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 20;
+    }
+
+    .modalback.open {
+      display: flex;
+    }
+
+    .modal {
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow: auto;
+      background: var(--paper);
+      border-radius: 20px;
+      padding: 19px;
+      box-shadow: var(--shadow);
+    }
+
+    .modalclose {
+      float: right;
+      border: 0;
+      background: #eee;
+      color: var(--ink);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .foot {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 25px 12px;
+    }
+
+    .weekbadge {
+      background: var(--lav);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 780px) {
+      .s8, .s6, .s4, .s3 {
+        grid-column: span 12;
+      }
+      .hero {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .datebox {
+        text-align: left;
+      }
+      .formgrid {
+        grid-template-columns: 1fr;
+      }
+      .timerdisplay {
+        font-size: 48px;
+      }
+      main {
+        padding: 14px;
+      }
+      .card {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
 <body>
-<header><div class="wrap">
-<div class="topline"><div class="brand">STUDY COMMAND <span style="font-weight:400;opacity:.6">/ PERSONAL ACADEMIC SEASON</span></div><small id="headerStatus">v2 · local-first</small></div>
-<div class="hero"><div><div class="eyebrow" style="color:#c9d9cd">One day at a time. All the way to CUET.</div><h1 id="heroTitle">Make today count.</h1><p id="heroSub">Your plan, your progress, your next move.</p></div><div class="datebox"><div class="eyebrow" style="color:#d0ded3">TODAY</div><strong id="dateDisplay">—</strong><span id="weekdayDisplay" style="opacity:.75;font-size:12px"></span></div></div>
-<div class="countrow"><span class="count" id="jeeCount" onclick="focusSetting('jeeDate')" title="Click to set JEE date">JEE countdown</span><span class="count" id="boardCount" onclick="focusSetting('boardDate')" title="Click to set Boards date">Boards countdown</span><span class="count" id="cuetCount" onclick="focusSetting('cuetDate')" title="Click to set CUET date">CUET countdown</span><span class="count" id="seasonCount" onclick="focusSetting('endDate')" title="Click to set Season end">Season end</span></div>
-</div></header>
-<main>
-<nav class="nav"><button class="active" data-screen="home">Overview</button><button data-screen="planner">Daily plan</button><button data-screen="syllabus">Syllabus</button><button data-screen="weightage">Weightage</button><button data-screen="tests">Weekly tests</button><button data-screen="checkin">11:30 PM review</button><button data-screen="timer">Focus tracker</button><button data-screen="settings">Settings / Backup</button></nav>
-<section class="tabscreen active" id="home"><div class="grid">
-<div class="card s3"><div class="eyebrow">Roadmap day</div><div class="metric" id="dayMetric">—</div><div class="muted" id="phaseMetric">Phase 1</div></div>
-<div class="card s3"><div class="eyebrow">Today's completion</div><div class="metric" id="doneMetric">0/0</div><div class="progress"><i id="dailyBar"></i></div></div>
-<div class="card s3"><div class="eyebrow">Focused today</div><div class="metric" id="hoursMetric">0.0h</div><div class="muted">Logged focus time</div></div>
-<div class="card s3"><div class="eyebrow">Questions today</div><div class="metric" id="questionsMetric">0</div><div class="muted">Practice count</div></div>
-<div class="card s8"><div class="flex"><h2>Today's mission</h2><button class="btn light" onclick="goScreen('planner')">Full plan ↗</button></div><div id="homeTasks"></div><div class="callout" style="margin-top:12px" id="mentorNote"></div></div>
-<div class="card s4"><h2>Subject progress</h2><div id="progressSubjects"></div><div class="muted">Completion means concepts + NCERT + practice + revision.</div></div>
-<div class="card s6"><h2>Weekly rhythm</h2><div class="smalltext"><b>Mon–Sat</b> — learn, practice, NCERT, recall.<br><b>Sunday / Day 7</b> — weekly test unlocked when you complete at least 70% of the week's tasks; then review errors and record scores.<br><b>Post-Boards</b> — English begins 1 March; GAT joins 1 April alongside full CUET practice.</div><div class="callout" style="margin-top:12px">Roadmap starts Day 1 today (<span id="homeStartLabel"></span>) through 31 May 2027. Edit dates in Settings anytime.</div></div>
-<div class="card s6"><h2>Latest check-in</h2><div id="latestCheck" class="muted">No review saved yet.</div><button class="btn light" style="margin-top:10px" onclick="goScreen('checkin')">Open evening review</button></div>
-</div></section>
-<section class="tabscreen" id="planner"><div class="grid"><div class="card s12"><div class="flex"><div><div class="eyebrow">Automatic daily scheduling</div><h2 class="dayheading" id="plannerDate">—</h2></div><div class="flex"><button class="btn light" onclick="moveDate(-1)">←</button><button class="btn light" onclick="jumpToday()">Today</button><button class="btn light" onclick="moveDate(1)">→</button></div></div><div class="flex" style="margin:8px 0 14px;flex-wrap:wrap"><span class="muted" id="plannerPhase"></span><button class="btn outline" onclick="rescheduleBacklog()">Reschedule unfinished →</button></div><div id="plannerList"></div><div style="margin-top:14px" class="formgrid"><div><label class="fieldlabel">Add your own task</label><input class="field" id="addTaskText" placeholder="e.g. Revise photoelectric graphs"></div><div><label class="fieldlabel">Subject</label><select class="field" id="addTaskSubject"><option>Maths</option><option>Physics</option><option>Chemistry</option><option>English</option><option>GAT</option><option>Revision</option><option>Test</option></select></div></div><button class="btn" style="margin-top:9px" onclick="addManualTask()">Add to this day</button><div class="muted" id="plannerNotice" style="margin-top:8px"></div></div>
-<div class="card s12"><h2>Backlog inbox</h2><p class="muted">Unfinished tasks are visible here. Rescheduling moves them to the next available day and keeps their original label.</p><div id="backlogList"></div></div></div></section>
-<section class="tabscreen" id="syllabus"><div class="grid"><div class="card s12"><h2>Class 12 &amp; CUET syllabus mastery</h2><div class="callout">Class 12 chapters are ordered for your JEE Main + CUET roadmap (excluding Class 11). English starts 1 March 2027 and GAT starts 1 April 2027. Tick a chapter after concept learning, NCERT reading/examples, practice, and revision.</div><div class="grid" style="margin-top:13px"><div class="card s4"><h3>Mathematics</h3><div id="mathList"></div></div><div class="card s4"><h3>Physics</h3><div id="physList"></div></div><div class="card s4"><h3>Chemistry</h3><div id="chemList"></div></div><div class="card s6"><h3>English (from 1 March)</h3><div id="engList"></div></div><div class="card s6"><h3>GAT (from 1 April)</h3><div id="gatList"></div></div></div></div></div></section>
-<section class="tabscreen" id="weightage"><div class="grid">
-<div class="card s6"><h2>CUET UG pattern (Class 12 NCERT)</h2><div class="smalltext"><p style="margin-top:0"><b>Syllabus:</b> Strictly Class 12 NCERT (Class 11 excluded).</p><p><b>Format:</b> 50 MCQs per paper · 60 mins · <b>+5</b> / <b>−1</b> (250 marks each).</p><p style="margin-bottom:0"><b>Subjects:</b> Maths, Physics, Chemistry + <b>English</b> (from 1 March) + <b>GAT</b> (from 1 April).</p></div><div class="callout" style="margin-top:12px">Focus on NCERT lines, tables, graphs, exceptions, and timed speed (72 sec/question).</div></div>
-<div class="card s6"><h2>JEE Main pattern (Class 12 share)</h2><div class="smalltext"><p style="margin-top:0"><b>Format:</b> 25 questions per subject (20 MCQs + 5 numericals) · <b>+4</b> / <b>−1</b>.</p><p><b>Class-12 Share:</b> ~52–55% of paper (~13–14 Qs per subject, Class 11 excluded).</p><p style="margin-bottom:0"><b>Order:</b> High-yield Class-12 chapters lead the sprint so JEE, Boards, and CUET stay aligned.</p></div><div class="callout" style="margin-top:12px">Physics &amp; Chemistry chapter durations include +2 extra days per chapter; Maths keeps its exact day count.</div></div>
-<div class="card s4"><h3>Maths sequence &amp; weightage</h3><table class="wtable"><thead><tr><th>Chapter</th><th>Days</th><th>CUET / JEE</th></tr></thead><tbody><tr><td>Vector Algebra</td><td>5d</td><td>High · 4 Qs / 1–2 Qs</td></tr><tr><td>3D Geometry</td><td>7d</td><td>High · 4–5 Qs / 2 Qs</td></tr><tr><td>Matrices &amp; Determinants</td><td>4d / 5d</td><td>High · 7–8 Qs / 2 Qs</td></tr><tr><td>Calculus (Cont., AOD, Int., AOI, DE)</td><td>7/7/10/4/5d</td><td>Very High · ~20 / 6–7 Qs</td></tr><tr><td>Probability, Rel., ITF, LPP</td><td>7/4/3/2d</td><td>Moderate · ~12 / 2–3 Qs</td></tr></tbody></table></div>
-<div class="card s4"><h3>Physics sequence (+2d each)</h3><table class="wtable"><thead><tr><th>Chapter (+2d)</th><th>Days</th><th>CUET / JEE</th></tr></thead><tbody><tr><td>Current Electricity</td><td>8d</td><td>High · 5–6 Qs / 2 Qs</td></tr><tr><td>Electrostatics (Pot./Cap. &amp; Charges)</td><td>8d / 8d</td><td>High · 9–10 Qs / 3–4 Qs</td></tr><tr><td>Moving Charges, EMI &amp; AC</td><td>6d / 7d / 6d</td><td>Moderate–High · 10 / 4–5 Qs</td></tr><tr><td>Modern Physics &amp; Semicond.</td><td>5/5/5/7d</td><td>High · 14–15 Qs / 5 Qs</td></tr><tr><td>Ray, Wave Optics, EMW, Mag.</td><td>10/7/4/5d</td><td>High · 15–16 Qs / 4–5 Qs</td></tr></tbody></table></div>
-<div class="card s4"><h3>Chemistry book index (+2d each)</h3><table class="wtable"><thead><tr><th>Chapter (+2d)</th><th>Days</th><th>Section / Yield</th></tr></thead><tbody><tr><td>Solutions, Electrochem., Kinetics</td><td>8d / 9d / 8d</td><td>Physical · High</td></tr><tr><td>Haloalkanes, Alcohols, Carbonyls</td><td>9d / 10d / 12d</td><td>Organic · Very High</td></tr><tr><td>Amines &amp; Biomolecules</td><td>8d / 9d</td><td>Organic · High</td></tr><tr><td>d- &amp; f-Block, Coord. Compounds</td><td>8d / 9d</td><td>Inorganic · High</td></tr></tbody></table></div>
-</div></section>
-<section class="tabscreen" id="tests"><div class="grid"><div class="card s12"><h2>Weekly test room</h2><p class="muted">Each week's test unlocks once at least 70% of that week's scheduled tasks are complete. Every unlocked week gets a chapter-specific test blueprint, a timed test session, score entry, and error-analysis checklist.</p><div id="weekTests"></div></div></div></section>
-<section class="tabscreen" id="checkin"><div class="grid"><div class="card s12"><div class="eyebrow">Nightly reset · 11:30 PM IST</div><h2>Honest progress report</h2><p class="muted">No guilt. Accurate data lets tomorrow's plan be realistic.</p><form id="checkForm"><div class="formgrid">
-<div><label class="fieldlabel">Roadmap day</label><input class="field" type="number" id="checkDay" min="1" required></div><div><label class="fieldlabel">Focused hours today</label><input class="field" type="number" id="checkHours" min="0" max="15" step=".25" value="0"></div>
-<div><label class="fieldlabel">Questions solved</label><input class="field" type="number" id="checkQuestions" min="0" value="0"></div><div><label class="fieldlabel">Weekly score (if tested)</label><input class="field" id="checkScore" placeholder="Maths __ / Physics __ / Chemistry __"></div>
-<div><label class="fieldlabel">Maths completed / pending</label><textarea class="field" rows="2" id="checkMath"></textarea></div><div><label class="fieldlabel">Physics completed / pending</label><textarea class="field" rows="2" id="checkPhysics"></textarea></div>
-<div><label class="fieldlabel">Chemistry completed / pending</label><textarea class="field" rows="2" id="checkChem"></textarea></div><div><label class="fieldlabel">English (Mar+) / GAT (Apr+)</label><textarea class="field" rows="2" id="checkOther"></textarea></div>
-<div><label class="fieldlabel">What got difficult or distracted you?</label><textarea class="field" rows="3" id="checkStruggle"></textarea></div><div><label class="fieldlabel">Tomorrow's priority</label><textarea class="field" rows="3" id="checkPriority"></textarea></div></div><button class="btn" type="submit" style="margin-top:12px">Save nightly review</button></form><div id="savedFeedback"></div></div><div class="card s12"><h2>Check-in history</h2><div id="checkHistory"></div></div></div></section>
-<section class="tabscreen" id="timer"><div class="grid"><div class="card s6"><div class="eyebrow">Focus studio · runs even when tab/browser is closed</div><h2>A quiet hour for the future you</h2><div class="timerwrap"><div class="timer-ring" id="timerRing"><div><div class="timerdisplay" id="clock">25:00</div><div class="muted" id="timerLabel">Ready to focus</div></div></div><div class="timercontrols"><button class="btn" id="timerToggle">Start</button><button class="btn light" id="timerReset">Reset</button><button class="btn light" id="timerSkip">Finish session</button></div><div class="timercontrols" style="margin-top:12px"><button class="preset active" data-min="25">25 focus</button><button class="preset" data-min="50">50 focus</button><button class="preset" data-min="15">15 break</button><button class="preset" data-min="5">5 break</button></div><div class="timercontrols" style="margin-top:10px"><label class="muted" for="customMinutes">Edit minutes:</label><input class="field" type="number" id="customMinutes" min="1" max="240" value="25" style="width:78px;padding:6px 8px;text-align:center"><button class="btn light" id="setCustomTimerBtn" style="padding:7px 11px">Set time</button></div></div></div>
-<div class="card s6"><h2>Today's focus statistics</h2><div class="statgrid"><div class="statbox"><strong id="sessionCount">0</strong><span>sessions</span></div><div class="statbox"><strong id="timerHours">0.0</strong><span>hours</span></div><div class="statbox"><strong id="timerStreak">0</strong><span>focus streak</span></div></div><h3 style="margin-top:15px">Focus log</h3><div id="focusLog"></div><p class="muted">A completed focus session is added to today's log. Uses wall-clock timestamps so it keeps running in the background until paused or completed.</p></div></div></section>
-<section class="tabscreen" id="settings"><div class="grid"><div class="card s6"><h2>Exam dates</h2><label class="fieldlabel">JEE Main Session 1</label><input class="field" type="date" id="jeeDate"><label class="fieldlabel" style="margin-top:10px">Boards / first major exam</label><input class="field" type="date" id="boardDate"><label class="fieldlabel" style="margin-top:10px">CUET UG</label><input class="field" type="date" id="cuetDate"><button class="btn" style="margin-top:12px" onclick="saveExamDates()">Save exam dates</button><div class="muted" id="examSavedNote" style="margin-top:8px"></div></div><div class="card s6"><h2>Study season</h2><label class="fieldlabel">Roadmap start date</label><input class="field" type="date" id="startDate"><label class="fieldlabel" style="margin-top:10px">Season ends</label><input class="field" type="date" id="endDate"><label class="fieldlabel" style="margin-top:10px">Phase 2 begins</label><input class="field" type="date" id="phase2Date"><button class="btn" style="margin-top:12px" onclick="saveSeason()">Save dates and regenerate plan</button><p class="muted">Default starts Day 1 today through 31 May 2027. English starts 1 March 2027 and GAT starts 1 April 2027.</p><div class="muted" id="seasonSavedNote"></div></div><div class="card s12"><h2>Backup and reset</h2><p class="muted">Your information lives on this browser/device. Download backups periodically if you use multiple devices or clear browser storage.</p><div class="flex" style="flex-wrap:wrap"><button class="btn" onclick="exportBackup()">Download backup</button><label class="btn light" style="cursor:pointer">Import backup<input type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)"></label><button class="btn warn" onclick="toggleResetConfirm(true)">Reset all app data</button></div><div id="resetConfirmBox" class="callout hidden" style="margin-top:12px"><b>Confirm reset?</b> This deletes all app data from this browser. Download a backup first if needed.<div style="margin-top:8px;display:flex;gap:8px"><button class="btn warn" onclick="resetAll()">Yes, reset everything</button><button class="btn light" onclick="toggleResetConfirm(false)">Cancel</button></div></div></div></div></section>
-<div class="foot">Built around your roadmap · November 2026 — May 2027 · progress is stored locally in this browser</div>
-</main>
-<div class="modalback" id="testModal"><div class="modal"><button class="modalclose" onclick="closeTest()">×</button><div id="testContent"></div></div></div>
-<script>
-const STORE="study_command_v2";
-const TIMER_STORE="study_command_timer_v1";
+  <header>
+    <div class="wrap">
+      <div class="topline">
+        <div class="brand">STUDY COMMAND <span>/ PERSONAL ACADEMIC SEASON</span></div>
+        <small id="headerStatus">fresh · local-first</small>
+      </div>
+      <div class="hero">
+        <div>
+          <div class="eyebrow" style="color: #c9d9cd;">One day at a time. All the way to CUET.</div>
+          <h1 id="heroTitle">Make today count.</h1>
+          <p id="heroSub">Your plan, your progress, your next move.</p>
+        </div>
+        <div class="datebox">
+          <div class="eyebrow" style="color: #d0ded3;">TODAY</div>
+          <strong id="dateDisplay">—</strong>
+          <span id="weekdayDisplay" style="opacity: 0.75; font-size: 12px;"></span>
+        </div>
+      </div>
+      <div class="countrow">
+        <span class="count" id="jeeCount" onclick="focusSetting('jeeDate')" title="Click to set JEE date">JEE countdown</span>
+        <span class="count" id="boardCount" onclick="focusSetting('boardDate')" title="Click to set Boards date">Boards countdown</span>
+        <span class="count" id="cuetCount" onclick="focusSetting('cuetDate')" title="Click to set CUET date">CUET countdown</span>
+        <span class="count" id="seasonCount" onclick="focusSetting('endDate')" title="Click to set Season end">Season end</span>
+      </div>
+    </div>
+  </header>
 
-function todayStr(){return new Date().toLocaleDateString("en-CA")}
+  <main>
+    <nav class="nav" aria-label="Primary sections">
+      <button class="active" data-screen="home">Overview</button>
+      <button data-screen="planner">Daily plan</button>
+      <button data-screen="syllabus">Syllabus</button>
+      <button data-screen="tests">Weekly tests</button>
+      <button data-screen="checkin">11:30 PM review</button>
+      <button data-screen="timer">Focus tracker</button>
+      <button data-screen="settings">Settings / Backup</button>
+    </nav>
 
-const defaultChapters={
-Maths:["Vector Algebra","3D Geometry","Matrices","Determinants","Continuity & Differentiability","Applications of Derivatives","Integrals","Applications of Integrals","Differential Equations","Probability","Relations & Functions","Inverse Trigonometric Functions","Linear Programming"],
-Physics:["Current Electricity","Electrostatic Potential & Capacitance","Electric Charges & Fields","Moving Charges & Magnetism","Electromagnetic Induction","Alternating Current","Dual Nature of Radiation & Matter","Atoms","Nuclei","Semiconductor Electronics","Ray Optics","Wave Optics","EM Waves","Magnetism & Matter"],
-Chemistry:["Solutions","Electrochemistry","Chemical Kinetics","Haloalkanes & Haloarenes","Alcohols, Phenols & Ethers","Aldehydes, Ketones & Carboxylic Acids","Amines","Biomolecules","d- & f-Block Elements","Coordination Compounds"],
-English:["Reading comprehension","Vocabulary","Grammar","Verbal ability","Practice sets"],
-GAT:["General knowledge","Current affairs","Quantitative aptitude","Logical reasoning","General science"]
-};
+    <!-- OVERVIEW -->
+    <section class="tabscreen active" id="home">
+      <div class="grid">
+        <div class="card s3">
+          <div class="eyebrow">Roadmap day</div>
+          <div class="metric" id="dayMetric">—</div>
+          <div class="muted" id="phaseMetric">Phase 1</div>
+        </div>
+        <div class="card s3">
+          <div class="eyebrow">Today's completion</div>
+          <div class="metric" id="doneMetric">0/0</div>
+          <div class="progress"><i id="dailyBar"></i></div>
+        </div>
+        <div class="card s3">
+          <div class="eyebrow">Focused today</div>
+          <div class="metric" id="hoursMetric">0.0h</div>
+          <div class="muted">Logged focus time</div>
+        </div>
+        <div class="card s3">
+          <div class="eyebrow">Questions today</div>
+          <div class="metric" id="questionsMetric">0</div>
+          <div class="muted">Practice count</div>
+        </div>
 
-const durations={
-Maths:[5,7,4,5,7,7,10,4,5,7,4,3,2],
-Physics:[8,8,8,6,7,6,5,5,5,7,10,7,4,5],
-Chemistry:[8,9,8,9,10,12,8,9,8,9]
-};
+        <div class="card s8">
+          <div class="flex">
+            <h2>Today's mission</h2>
+            <button class="btn light" onclick="goScreen('planner')">Full plan ↗</button>
+          </div>
+          <div id="homeTasks"></div>
+          <div class="callout" style="margin-top: 12px;" id="mentorNote"></div>
+        </div>
 
-function makeId(){
- return (typeof crypto!=="undefined"&&crypto.randomUUID)?crypto.randomUUID():"id-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8);
-}
+        <div class="card s4">
+          <h2>Subject progress</h2>
+          <div id="progressSubjects"></div>
+          <div class="muted">Completion means concepts + NCERT + practice + revision.</div>
+        </div>
 
-function setInlineNotice(id,msg){
- const el=document.getElementById(id);
- if(el)el.textContent=msg;
-}
+        <div class="card s6">
+          <h2>Weekly rhythm</h2>
+          <div class="smalltext">
+            <b>Mon–Sat</b> — learn, practice, NCERT, recall.<br>
+            <b>Sunday / Day 7</b> — weekly test unlocked when you complete at least 70% of the week's tasks; then review errors and record scores.<br>
+            <b>Backlog</b> — carry forward in a controlled way, not an endless pile.
+          </div>
+          <div class="callout" style="margin-top: 12px;">
+            Fresh season initialized on a clean slate through 31 May 2027. Edit dates in Settings anytime.
+          </div>
+        </div>
 
-function makePlan(start,end){
- let dayTasks={};
- const add=(d,s,t,minutes=80,kind="Study")=>{if(!dayTasks[d])dayTasks[d]=[];dayTasks[d].push({id:makeId(),subject:s,title:t,minutes,kind,done:false,origin:"plan"})};
- let date=new Date(start+"T12:00:00"),last=new Date(end+"T12:00:00"),day=1;
- let subjects=["Maths","Physics","Chemistry"];
- let remaining={Maths:durations.Maths[0],Physics:durations.Physics[0],Chemistry:durations.Chemistry[0]};
- let chIndex={Maths:0,Physics:0,Chemistry:0};
- while(date<=last){
-   let ds=date.toISOString().slice(0,10);
-   if(day<=70){
-     subjects.forEach(s=>{
-       let ch=defaultChapters[s][chIndex[s]];
-       if(ch){
-         let totalD=durations[s][chIndex[s]],curD=totalD-remaining[s]+1;
-         add(ds,s,`${ch} · concept learning / NCERT / practice (day ${curD} of ${totalD})`,s==="Maths"?150:125,"Chapter");
-         remaining[s]--;
-         if(remaining[s]<=0){chIndex[s]++;remaining[s]=durations[s][chIndex[s]]||1}
-       }else{
-         add(ds,s,`${s} · Class 12 NCERT mastery & mixed practice`,s==="Maths"?150:125,"Consolidation");
-       }
-     });
-     add(ds,"Revision","Daily recall: formulas/NCERT lines + error log + 20 mixed questions",day%7===0?50:80,"Revision");
-     if(day%7===0)add(ds,"Revision","Weekly cumulative revision + error log",30,"Revision");
-   }else if(day<=94){
-     const phaseTopics=["Board sample-paper section practice + NCERT miscellaneous","Derivations, diagrams and formula recall","NCERT line-by-line + exemplar mistakes","Timed subject practice + correction"];
-     add(ds,"Maths",phaseTopics[(day-71)%4],150,"Consolidation");
-     add(ds,"Physics",phaseTopics[(day-71)%4],125,"Consolidation");
-     add(ds,"Chemistry",phaseTopics[(day-71)%4],125,"Consolidation");
-     add(ds,"Revision","Daily recall + NCERT line-by-line + error log",80,"Revision");
-     if(day%7===0)add(ds,"Test","Weekly board/CUET cumulative test and analysis",120,"Test");
-   }else if(ds<"2027-03-01"){
-     add(ds,"Maths","Final NCERT revision / sample-paper sections / weak-topic repair",150,"Consolidation");
-     add(ds,"Physics","Formula, derivations, NCERT graphs and sample-paper section",125,"Consolidation");
-     add(ds,"Chemistry","NCERT line-by-line, reactions and sample-paper section",125,"Consolidation");
-     add(ds,"Revision","Board presentation checklist + mistake notebook",80,"Revision");
-     if(day%7===0)add(ds,"Test","Weekly cumulative Board + CUET concept test",120,"Test");
-   }else if(ds<"2027-04-01"){
-     // March post-boards: CUET PCM + English (GAT begins 1 April)
-     const cycle=(day-95)%7;
-     const mx=["NCERT Maths line-by-line + 40 CUET MCQs","Maths speed drill + 40 MCQs","Maths weak-area revision + 40 MCQs","Maths mixed mock section + analysis","Maths formula/definition recall + 30 MCQs","Maths timed mixed set + error log","Weekly PCM + English mini-mock + analysis"];
-     const px=["Physics NCERT reading + 35 MCQs","Physics formulas/graphs + 35 MCQs","Physics NCERT statements + 35 MCQs","Physics timed set + analysis","Physics weak chapters + 35 MCQs","Physics mixed set + error log","Weekly PCM + English mini-mock + analysis"];
-     const cx=["Chemistry NCERT line-by-line + 40 MCQs","Chemistry reactions/definitions + 40 MCQs","Chemistry tables/exceptions + 40 MCQs","Chemistry timed set + analysis","Chemistry weak chapters + 40 MCQs","Chemistry mixed set + error log","Weekly PCM + English mini-mock + analysis"];
-     const ex=["English reading comprehension + vocabulary","English grammar and verbal ability drills","English timed reading set + review","English vocabulary/grammar recall","English practice set + error log","English weak area practice","English CUET mini-mock + analysis"];
-     add(ds,"Maths",mx[cycle],cycle===6?120:150,"CUET");
-     add(ds,"Physics",px[cycle],cycle===6?90:120,"CUET");
-     add(ds,"Chemistry",cx[cycle],cycle===6?90:120,"CUET");
-     add(ds,"English",ex[cycle],cycle===6?45:75,"CUET");
-     add(ds,"Revision","NCERT recall, error notebook and 30 mixed questions",cycle===6?30:75,"Revision");
-     if(cycle===6)add(ds,"Test","CUET PCM + English mini-mock: timed sections + review",150,"Test");
-   }else{
-     // April-May full CUET preparation: PCM + English + GAT
-     const cycle=(day-126)%7;
-     const math=["Maths NCERT mastery + 50 MCQs","Maths speed/accuracy set + 50 MCQs","Maths weak chapter repair + 50 MCQs","Maths full timed section + analysis","Maths mixed chapters + 50 MCQs","Maths formula drill + 50 MCQs","CUET Maths mock + error analysis"];
-     const phys=["Physics NCERT line-by-line + 45 MCQs","Physics graphs/formulas + 45 MCQs","Physics statements + 45 MCQs","Physics timed section + analysis","Physics mixed chapters + 45 MCQs","Physics weak topics + 45 MCQs","CUET Physics mock + error analysis"];
-     const chem=["Chemistry NCERT facts + 50 MCQs","Chemistry reaction/exception recall + 50 MCQs","Chemistry tables + 50 MCQs","Chemistry timed section + analysis","Chemistry mixed chapters + 50 MCQs","Chemistry weak topics + 50 MCQs","CUET Chemistry mock + error analysis"];
-     const eng=["English reading comprehension + vocabulary","English grammar and verbal ability drills","English timed reading set + review","English vocabulary/grammar recall","English practice set + error log","English weak area practice","English mini-mock + analysis"];
-     const gat=["GAT current affairs + GK","GAT quant aptitude fundamentals + practice","GAT logical reasoning drills","GAT general science + static GK","GAT mixed timed practice","GAT weak-topic practice","GAT mini-mock + analysis"];
-     add(ds,"Maths",math[cycle],cycle===6?120:150,"CUET");add(ds,"Physics",phys[cycle],cycle===6?90:120,"CUET");add(ds,"Chemistry",chem[cycle],cycle===6?90:120,"CUET");add(ds,"English",eng[cycle],cycle===6?45:90,"CUET");add(ds,"GAT",gat[cycle],cycle===6?45:90,"CUET");add(ds,"Revision","Flash recall + error notebook + review previous mock",30,"Revision");
-     if(cycle===6)add(ds,"Test","Weekly full CUET practice + detailed error analysis",180,"Test");
-   }
-   date.setDate(date.getDate()+1);day++;
- }
- return dayTasks;
-}
+        <div class="card s6">
+          <h2>Latest check-in</h2>
+          <div id="latestCheck" class="muted">No review saved yet.</div>
+          <button class="btn light" style="margin-top: 10px;" onclick="goScreen('checkin')">Open evening review</button>
+        </div>
+      </div>
+    </section>
 
-let state=loadState();
-function loadState(){
- try{
-   let s=JSON.parse(localStorage.getItem(STORE)||"{}");
-   let stDate=s.startDate||todayStr();
-   let enDate=s.endDate||"2027-05-31";
-   return {
-     ...baseState(),
-     ...s,
-     startDate:stDate,
-     endDate:enDate,
-     phase2Date:s.phase2Date||"2027-03-01",
-     jeeDate:s.jeeDate||"2027-01-20",
-     boardDate:s.boardDate||"2027-02-16",
-     cuetDate:s.cuetDate||"2027-05-15",
-     chapters:{...defaultChapters},
-     chapterDone:{Maths:[],Physics:[],Chemistry:[],English:[],GAT:[],...(s.chapterDone||{})},
-     plan:s.plan||makePlan(stDate,enDate)
-   };
- }catch(e){return baseState()}
-}
-function baseState(){
- const st=todayStr(),en="2027-05-31";
- return {startDate:st,endDate:en,phase2Date:"2027-03-01",jeeDate:"2027-01-20",boardDate:"2027-02-16",cuetDate:"2027-05-15",selectedDate:todayStr(),plan:makePlan(st,en),chapters:defaultChapters,chapterDone:{Maths:[],Physics:[],Chemistry:[],English:[],GAT:[]},checkins:[],focus:{},testResults:[],backlog:[]}
-}
-function save(){localStorage.setItem(STORE,JSON.stringify(state));renderAll()}
-function dateObj(s){return new Date(s+"T12:00:00")}
-function fmt(s){return dateObj(s).toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}
-function daysBetween(a,b){return Math.round((dateObj(b)-dateObj(a))/86400000)}
-function roadmapDay(date){return Math.max(1,daysBetween(state.startDate,date)+1)}
-function phaseFor(date){if(date>="2027-04-01")return "Phase 3 · Full CUET (PCM + English + GAT)";if(date>="2027-03-01")return "Phase 2 · Post-Boards CUET (PCM + English)";if(date>="2027-02-24")return "Phase 1 · Final Board buffer";if(roadmapDay(date)<=70)return "Phase 1 · Syllabus sprint";if(roadmapDay(date)<=94)return "Phase 1 · Boards consolidation";return "CUET consolidation"}
-function taskList(date){if(!state.plan[date])state.plan[date]=[];return state.plan[date]}
-function screen(name){document.querySelectorAll(".tabscreen").forEach(x=>x.classList.remove("active"));document.getElementById(name).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.screen===name));renderAll()}
-document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>screen(b.dataset.screen)));
-function goScreen(n){screen(n)}
-function focusSetting(fieldId){screen("settings");setTimeout(()=>{const el=document.getElementById(fieldId);if(el){el.focus();if(el.showPicker)try{el.showPicker()}catch(e){}}},60)}
-function moveDate(n){let d=dateObj(state.selectedDate);d.setDate(d.getDate()+n);state.selectedDate=d.toLocaleDateString("en-CA");save()}
-function jumpToday(){state.selectedDate=todayStr();save()}
-function escape(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function taskTag(s){return s==="Physics"?"p":s==="Chemistry"?"c":s==="English"||s==="GAT"?"e":s==="Test"?"t":""}
-function taskHTML(t,date,i,compact=false){return `<div class="task ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask('${date}',${i},this.checked)"><div class="taskbody"><b>${escape(t.title)}</b><span class="tag ${taskTag(t.subject)}">${escape(t.subject)}</span><div class="muted">${t.minutes||60} min · ${escape(t.kind||"Task")}</div></div>${compact?"":`<div class="taskactions"><button class="mini" onclick="editTask('${date}',${i})">Edit</button><button class="mini" onclick="removeTask('${date}',${i})">×</button></div>`}</div>`}
-function toggleTask(date,i,v){state.plan[date][i].done=v;if(v&&state.plan[date][i].kind==="Chapter"){const sub=state.plan[date][i].subject;const title=state.plan[date][i].title;const chapter=state.chapters[sub]?.find(ch=>title.includes(ch));if(chapter&&!state.chapterDone[sub].includes(chapter))state.chapterDone[sub].push(chapter)}save()}
-function removeTask(date,i){state.plan[date].splice(i,1);save()}
-let editingTarget=null;
-function editTask(date,i){
- let t=state.plan[date][i];
- editingTarget={date,i};
- document.getElementById("testContent").innerHTML=`<h3>Edit task</h3><label class="fieldlabel">Task text</label><input class="field" id="editTaskField" value="${escape(t.title)}"><button class="btn" style="margin-top:12px" onclick="saveEditedTask()">Save task</button>`;
- document.getElementById("testModal").classList.add("open");
- setTimeout(()=>document.getElementById("editTaskField")?.focus(),40);
-}
-function saveEditedTask(){
- if(!editingTarget)return;
- const val=document.getElementById("editTaskField")?.value.trim();
- if(!val)return;
- state.plan[editingTarget.date][editingTarget.i].title=val;
- editingTarget=null;closeTest();save();setInlineNotice("plannerNotice","Task updated.");
-}
-function addManualTask(){let txt=document.getElementById("addTaskText").value.trim();if(!txt){setInlineNotice("plannerNotice","Enter a task title first.");return}let s=document.getElementById("addTaskSubject").value;taskList(state.selectedDate).push({id:makeId(),subject:s,title:txt,minutes:60,kind:"Personal task",done:false,origin:"manual"});document.getElementById("addTaskText").value="";save();setInlineNotice("plannerNotice","Task added to this day.")}
-function rescheduleBacklog(){let from=state.selectedDate;let tasks=taskList(from).filter(t=>!t.done);if(!tasks.length){setInlineNotice("plannerNotice","No unfinished tasks for this day.");return}let cursor=dateObj(from);cursor.setDate(cursor.getDate()+1);let moved=[];tasks.forEach(t=>{let target;for(let tries=0;tries<14;tries++){let ds=cursor.toLocaleDateString("en-CA"),existing=state.plan[ds]||[],used=existing.reduce((sum,x)=>sum+(x.minutes||0),0),cap=ds>="2027-04-01"?600:480;if(used+(t.minutes||60)<=cap||tries===13){target=ds;break}cursor.setDate(cursor.getDate()+1)}if(!state.plan[target])state.plan[target]=[];let copy={...t,id:makeId(),title:"[Carried forward] "+t.title,origin:"backlog",done:false};state.plan[target].push(copy);state.backlog.push({from,to:target,task:copy.title,subject:copy.subject});moved.push(target);cursor=dateObj(target);cursor.setDate(cursor.getDate()+1)});state.plan[from]=taskList(from).filter(t=>t.done);state.selectedDate=moved[0]||from;save();setInlineNotice("plannerNotice",`${tasks.length} unfinished task(s) spread across ${new Set(moved).size} day(s).`)}
-function addChapterCheckboxes(subject,id){const el=document.getElementById(id);if(!el)return;let list=state.chapters[subject]||[];el.innerHTML=list.map(ch=>`<div class="chapteritem"><label><input type="checkbox" ${state.chapterDone[subject]?.includes(ch)?"checked":""} onchange="markChapter('${subject}',${JSON.stringify(ch)},this.checked)"> ${escape(ch)}</label></div>`).join("")}
-function markChapter(s,ch,v){if(!state.chapterDone[s])state.chapterDone[s]=[];if(v&&!state.chapterDone[s].includes(ch))state.chapterDone[s].push(ch);if(!v)state.chapterDone[s]=state.chapterDone[s].filter(x=>x!==ch);save()}
-function subjectProgress(){return ["Maths","Physics","Chemistry"].map(s=>{let n=state.chapters[s].length,c=state.chapterDone[s]?.length||0,p=Math.round(c/n*100);let cl=s==="Physics"?"p":s==="Chemistry"?"c":"";return `<div class="subjectline"><span class="dot ${cl}"></span><div style="flex:1"><div class="flex"><b>${s}</b><span class="muted">${c}/${n} · ${p}%</span></div><div class="progress"><i style="width:${p}%"></i></div></div></div>`}).join("")}
-function renderPlanner(){let d=state.selectedDate,t=taskList(d);document.getElementById("plannerDate").textContent=fmt(d)+` · Day ${roadmapDay(d)}`;document.getElementById("plannerPhase").textContent=phaseFor(d)+` · ${(t.reduce((sum,x)=>sum+(x.minutes||0),0)/60).toFixed(1)} scheduled hours`;document.getElementById("plannerList").innerHTML=t.map((x,i)=>taskHTML(x,d,i)).join("")||'<div class="muted">Nothing scheduled. Add a task above.</div>';document.getElementById("backlogList").innerHTML=state.backlog.slice(-12).reverse().map(x=>`<div class="historyrow"><b>${escape(x.task)}</b><div class="muted">${x.subject} · moved ${fmt(x.from)} → ${fmt(x.to)}</div></div>`).join("")||'<div class="muted">No backlog carry-forwards recorded.</div>'}
-function renderDashboard(){let d=todayStr(),t=taskList(d),n=t.length,c=t.filter(x=>x.done).length;document.getElementById("dayMetric").textContent=roadmapDay(d);document.getElementById("phaseMetric").textContent=phaseFor(d);document.getElementById("doneMetric").textContent=`${c}/${n}`;document.getElementById("dailyBar").style.width=n?`${100*c/n}%`:"0%";document.getElementById("hoursMetric").textContent=((state.focus[d]||[]).reduce((a,x)=>a+x.minutes,0)/60).toFixed(1)+"h";document.getElementById("questionsMetric").textContent=state.checkins.find(x=>x.date===d)?.questions||0;document.getElementById("homeTasks").innerHTML=t.slice(0,6).map((x,i)=>taskHTML(x,d,i,true)).join("")||'<div class="muted">No daily targets generated for this date.</div>';document.getElementById("progressSubjects").innerHTML=subjectProgress();const stEl=document.getElementById("homeStartLabel");if(stEl)stEl.textContent=fmt(state.startDate);let pc=n?Math.round(c/n*100):0;document.getElementById("mentorNote").textContent=pc>=80?"Strong execution. Finish the remaining tasks, then spend time on error analysis instead of adding extra work.":pc>=40?"Keep momentum. Finish the highest-priority unfinished block first; reschedule only what truly cannot fit.":"Start with the smallest first task. One focused block is more valuable than planning for another hour.";let latest=state.checkins[0];document.getElementById("latestCheck").innerHTML=latest?`<b>${fmt(latest.date)} · Day ${latest.day}</b><p>${latest.hours} focused hours · ${latest.questions} questions</p><p><b>Difficulty:</b> ${escape(latest.struggle||"—")}</p><p><b>Next:</b> ${escape(latest.priority||"—")}</p>`:"No review saved yet."}
-function countdown(el,date,label){if(!date){document.getElementById(el).textContent=label+" · date not set";return}let n=daysBetween(todayStr(),date);document.getElementById(el).textContent=n>0?`${label} · ${n} days left`:n===0?`${label} · today!`:`${label} · passed`}
-function renderHeader(){let d=new Date();document.getElementById("dateDisplay").textContent=d.toLocaleDateString(undefined,{month:"short",day:"numeric"});document.getElementById("weekdayDisplay").textContent=d.toLocaleDateString(undefined,{weekday:"long"});countdown("jeeCount",state.jeeDate,"JEE");countdown("boardCount",state.boardDate,"Boards");countdown("cuetCount",state.cuetDate,"CUET");countdown("seasonCount",state.endDate,"End of study season");document.getElementById("heroTitle").textContent=d.getHours()<12?"Good morning.":d.getHours()<17?"Keep your momentum.":"A little progress still counts."}
-function renderSyllabus(){addChapterCheckboxes("Maths","mathList");addChapterCheckboxes("Physics","physList");addChapterCheckboxes("Chemistry","chemList");addChapterCheckboxes("English","engList");addChapterCheckboxes("GAT","gatList")}
-function weekRange(week){let start=dateObj(state.startDate);start.setDate(start.getDate()+(week-1)*7);let end=new Date(start);end.setDate(end.getDate()+6);return [start.toLocaleDateString("en-CA"),end.toLocaleDateString("en-CA")]}
-function weekTasks(week){let [a,b]=weekRange(week);let list=[];let cur=dateObj(a),stop=dateObj(b);while(cur<=stop){let ds=cur.toLocaleDateString("en-CA");list.push(...(state.plan[ds]||[]));cur.setDate(cur.getDate()+1)}return list}
-function weekComplete(week){let t=weekTasks(week),done=t.filter(x=>x.done).length;return {done,total:t.length,percent:t.length?Math.round(done/t.length*100):0,unlock:t.length>0&&done/t.length>=.7}}
-function chaptersOfWeek(week){let t=weekTasks(week);return [...new Set(t.filter(x=>!["Revision","Test"].includes(x.kind)).map(x=>x.subject+": "+x.title.split(" · ")[0]))]}
-function renderTests(){let totalWeeks=Math.ceil((daysBetween(state.startDate,state.endDate)+1)/7);let html="";for(let w=1;w<=totalWeeks;w++){let st=weekComplete(w),[a,b]=weekRange(w),record=state.testResults.find(x=>x.week===w);html+=`<div class="testweek ${st.unlock?"":"locked"}"><div class="flex"><div><h3>Week ${w} · ${fmt(a)} to ${fmt(b)}</h3><div class="muted">${st.done}/${st.total} tasks · ${st.percent}% completed · ${st.unlock?"Test unlocked":"Complete at least 70% to unlock"}</div></div><span class="weekbadge">${record?`Score ${record.score}`:st.unlock?"READY":"LOCKED"}</span></div><div class="progress"><i style="width:${st.percent}%"></i></div><div class="smalltext" style="margin:10px 0"><b>Covered:</b> ${escape(chaptersOfWeek(w).slice(0,10).join(" · ")||"CUET practice cycle")}</div><button class="btn ${st.unlock?"":"light"}" ${st.unlock?"":"disabled"} onclick="openWeekTest(${w})">${record?"Retake / review test":"Start weekly test"}</button>${record?`<div class="testresult">Last attempt: ${record.score}/${record.max} (${record.date}) · ${escape(record.note||"")}</div>`:""}</div>`}document.getElementById("weekTests").innerHTML=html}
-function questionTemplates(w){let topics=chaptersOfWeek(w);let subj=weekTasks(w).map(t=>t.subject).filter(s=>["Maths","Physics","Chemistry","English","GAT"].includes(s));let uniq=[...new Set(subj)];let prompts=[];uniq.forEach(s=>{let ch=topics.filter(x=>x.startsWith(s+":")).map(x=>x.replace(s+": ",""));if(!ch.length)return;let n=s==="Maths"?10:s==="Physics"?10:s==="Chemistry"?10:s==="English"?5:5;let forms=s==="Maths"?"Solve 10 mixed problems, including NCERT/Board-style full working and CUET speed questions.":s==="Physics"?"Answer 10 conceptual NCERT questions, including graphs/units, and 5 formula applications.":s==="Chemistry"?"Complete 10 NCERT line/fact questions and 5 calculations/reaction/application questions.":s==="English"?"Complete a timed reading/grammar/vocabulary set.":"Complete timed GK/current affairs, quant, reasoning and science questions.";prompts.push({subject:s,chapters:ch,task:forms,marks:n*2})});return prompts}
-function openWeekTest(w){if(!weekComplete(w).unlock){setInlineNotice("headerStatus","Complete 70% of week tasks first");return}let blue=questionTemplates(w),[a,b]=weekRange(w);document.getElementById("testContent").innerHTML=`<h2>Week ${w} cumulative test</h2><div class="muted">${fmt(a)} — ${fmt(b)} · Chapters: ${escape(chaptersOfWeek(w).join(", ")||"Weekly practice")}</div><div class="callout" style="margin:12px 0">Test honestly, without notes. Use the blueprint below to create/attempt your questions from NCERT and your practice material. Score each subject after the attempt.</div>${blue.map((x,i)=>`<div class="testq"><b>${x.subject} · ${x.marks} suggested marks</b><p class="smalltext"><b>Coverage:</b> ${escape(x.chapters.join(", "))}</p><p>${x.task}</p><label>Score earned<input class="field" type="number" min="0" max="${x.marks}" id="score${i}" value="0"></label></div>`).join("")}<label class="fieldlabel" style="margin-top:12px">Mistake analysis / weak areas</label><textarea class="field" id="testNote" rows="3"></textarea><button class="btn" style="margin-top:12px" onclick="saveWeekScore(${w},${blue.reduce((a,x)=>a+x.marks,0)},${blue.length})">Save score & analysis</button>`;document.getElementById("testModal").classList.add("open")}
-function closeTest(){editingTarget=null;document.getElementById("testModal").classList.remove("open")}
-function saveWeekScore(w,max,count){let score=0;for(let i=0;i<count;i++)score+=Number(document.getElementById("score"+i).value||0);let note=document.getElementById("testNote").value;state.testResults.unshift({week:w,date:todayStr(),score,max,note});save();closeTest()}
-document.getElementById("checkForm").addEventListener("submit",e=>{e.preventDefault();let d=todayStr(),entry={date:d,day:Number(document.getElementById("checkDay").value),hours:Number(document.getElementById("checkHours").value),questions:Number(document.getElementById("checkQuestions").value),score:document.getElementById("checkScore").value,math:document.getElementById("checkMath").value,physics:document.getElementById("checkPhysics").value,chem:document.getElementById("checkChem").value,other:document.getElementById("checkOther").value,struggle:document.getElementById("checkStruggle").value,priority:document.getElementById("checkPriority").value};state.checkins.unshift(entry);document.getElementById("savedFeedback").innerHTML="<div class='testresult'>Saved. Tomorrow, start with your priority task and review today's mistakes before new learning.</div>";save()});
-function renderCheckins(){let latest=state.checkins[0];document.getElementById("checkDay").value=latest?.date===todayStr()?latest.day:roadmapDay(todayStr());document.getElementById("checkHistory").innerHTML=state.checkins.map(x=>`<div class="historyrow"><b>${fmt(x.date)} · Day ${x.day}</b><div class="muted">${x.hours} hours · ${x.questions} questions · ${escape(x.score||"No test score")}</div><p class="smalltext"><b>Struggle:</b> ${escape(x.struggle||"—")}<br><b>Tomorrow:</b> ${escape(x.priority||"—")}</p></div>`).join("")||'<div class="muted">Saved reviews will show here.</div>'}
+    <!-- DAILY PLAN -->
+    <section class="tabscreen" id="planner">
+      <div class="grid">
+        <div class="card s12">
+          <div class="flex">
+            <div>
+              <div class="eyebrow">Automatic daily scheduling</div>
+              <h2 class="dayheading" id="plannerDate">—</h2>
+            </div>
+            <div class="flex">
+              <button class="btn light" onclick="moveDate(-1)">←</button>
+              <button class="btn light" onclick="jumpToday()">Today</button>
+              <button class="btn light" onclick="moveDate(1)">→</button>
+            </div>
+          </div>
+          <div class="flex" style="margin: 8px 0 14px; flex-wrap: wrap;">
+            <span class="muted" id="plannerPhase"></span>
+            <button class="btn outline" onclick="rescheduleBacklog()">Reschedule unfinished →</button>
+          </div>
+          <div id="plannerList"></div>
+          <div style="margin-top: 14px;" class="formgrid">
+            <div>
+              <label class="fieldlabel" for="addTaskText">Add your own task</label>
+              <input class="field" id="addTaskText" placeholder="e.g. Revise photoelectric graphs">
+            </div>
+            <div>
+              <label class="fieldlabel" for="addTaskSubject">Subject</label>
+              <select class="field" id="addTaskSubject">
+                <option>Maths</option>
+                <option>Physics</option>
+                <option>Chemistry</option>
+                <option>English</option>
+                <option>GAT</option>
+                <option>Revision</option>
+                <option>Test</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn" style="margin-top: 9px;" onclick="addManualTask()">Add to this day</button>
+          <div id="plannerNotice"></div>
+        </div>
 
-// Background-persistent timer using wall-clock endTime in localStorage
-let timerState=loadTimerState(),interval=null;
-function defaultTimerState(){return {chosenMinutes:25,totalSeconds:25*60,remainingWhenPaused:25*60,isRunning:false,endTime:null}}
-function loadTimerState(){try{const s=JSON.parse(localStorage.getItem(TIMER_STORE)||"null");return s&&typeof s.totalSeconds==="number"?{...defaultTimerState(),...s}:defaultTimerState()}catch(e){return defaultTimerState()}}
-function saveTimerState(){localStorage.setItem(TIMER_STORE,JSON.stringify(timerState))}
-function getRemainingSeconds(){return timerState.isRunning&&timerState.endTime?Math.max(0,Math.ceil((timerState.endTime-Date.now())/1000)):Math.max(0,timerState.remainingWhenPaused)}
-function playCompletionChime(){try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;const ctx=new Ctx();[523.25,659.25,783.99].forEach((freq,idx)=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type="sine";osc.frequency.value=freq;gain.gain.setValueAtTime(.001,ctx.currentTime+idx*.18);gain.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+idx*.18+.04);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+idx*.18+.7);osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+idx*.18);osc.stop(ctx.currentTime+idx*.18+.75)})}catch(e){}}
-function syncTimerInputs(){document.querySelectorAll(".preset").forEach(x=>x.classList.toggle("active",Number(x.dataset.min)===timerState.chosenMinutes));const inp=document.getElementById("customMinutes");if(inp&&document.activeElement!==inp)inp.value=timerState.chosenMinutes}
-function drawTimer(){
- const rem=getRemainingSeconds(),mm=Math.floor(rem/60),ss=rem%60,label=`${String(mm).padStart(2,"0")}:${String(ss).padStart(2,"0")}`;
- document.getElementById("clock").textContent=label;
- const pct=timerState.totalSeconds>0?Math.min(100,Math.max(0,100*(1-rem/timerState.totalSeconds))):0;
- document.getElementById("timerRing").style.setProperty("--ring",pct+"%");
- const btn=document.getElementById("timerToggle"),lbl=document.getElementById("timerLabel"),hdr=document.getElementById("headerStatus");
- if(timerState.isRunning){
-   btn.textContent="Pause";lbl.textContent="Running in background";
-   if(hdr)hdr.textContent=`v2 · focus ${label}`;
- }else{
-   if(hdr)hdr.textContent="v2 · local-first";
-   if(rem<timerState.totalSeconds&&rem>0){btn.textContent="Resume";lbl.textContent="Paused"}else{btn.textContent="Start"}
- }
-}
-function tickTimer(){
- if(!timerState.isRunning){drawTimer();return}
- const rem=getRemainingSeconds();drawTimer();
- if(rem<=0){
-   const mins=timerState.chosenMinutes;
-   timerState.isRunning=false;timerState.endTime=null;timerState.remainingWhenPaused=timerState.totalSeconds;
-   saveTimerState();stopTicker();completeSession(mins,true);drawTimer();
-   document.getElementById("timerLabel").textContent="Session complete · take a break";
- }
-}
-function ensureTicker(){if(!interval)interval=setInterval(tickTimer,500)}
-function stopTicker(){if(interval){clearInterval(interval);interval=null}}
-function startTimer(){
- if(timerState.isRunning){
-   timerState.remainingWhenPaused=getRemainingSeconds();timerState.isRunning=false;timerState.endTime=null;
-   saveTimerState();stopTicker();drawTimer();return;
- }
- const startSec=timerState.remainingWhenPaused>0?timerState.remainingWhenPaused:timerState.totalSeconds;
- timerState.isRunning=true;timerState.endTime=Date.now()+startSec*1000;
- saveTimerState();ensureTicker();drawTimer();
-}
-function setTimerMinutes(mins){
- const clamped=Math.max(1,Math.min(240,Math.round(Number(mins)||25)));
- stopTicker();
- timerState={chosenMinutes:clamped,totalSeconds:clamped*60,remainingWhenPaused:clamped*60,isRunning:false,endTime:null};
- saveTimerState();syncTimerInputs();drawTimer();
- document.getElementById("timerLabel").textContent=`Set to ${clamped} min · ready`;
-}
-function resetTimer(){setTimerMinutes(timerState.chosenMinutes);document.getElementById("timerLabel").textContent="Ready to focus"}
-function completeSession(min,tone=false){let d=todayStr();if(!state.focus[d])state.focus[d]=[];state.focus[d].push({minutes:min,at:new Date().toLocaleTimeString()});save();if(tone)playCompletionChime();document.getElementById("timerLabel").textContent="Logged. Take a mindful break."}
-document.getElementById("timerToggle").onclick=startTimer;
-document.getElementById("timerReset").onclick=resetTimer;
-document.getElementById("timerSkip").onclick=()=>{const elapsed=timerState.totalSeconds-getRemainingSeconds();const mins=elapsed>=60?Math.max(1,Math.round(elapsed/60)):timerState.chosenMinutes;completeSession(mins,false);resetTimer();document.getElementById("timerLabel").textContent="Session logged"};
-document.querySelectorAll(".preset").forEach(b=>b.onclick=()=>setTimerMinutes(Number(b.dataset.min)));
-document.getElementById("setCustomTimerBtn").onclick=()=>setTimerMinutes(document.getElementById("customMinutes").value);
-document.getElementById("customMinutes").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();setTimerMinutes(document.getElementById("customMinutes").value)}});
-document.addEventListener("visibilitychange",()=>{if(!document.hidden)tickTimer()});
-window.addEventListener("focus",tickTimer);
+        <div class="card s12">
+          <h2>Backlog inbox</h2>
+          <p class="muted">Unfinished tasks are visible here. Rescheduling moves them to the next available day and keeps their original label.</p>
+          <div id="backlogList"></div>
+        </div>
+      </div>
+    </section>
 
-function renderTimer(){let f=state.focus[todayStr()]||[];document.getElementById("sessionCount").textContent=f.length;document.getElementById("timerHours").textContent=(f.reduce((a,x)=>a+x.minutes,0)/60).toFixed(1);document.getElementById("timerStreak").textContent=focusStreak();document.getElementById("focusLog").innerHTML=f.map(x=>`<div class="historyrow"><b>${x.minutes} min focus</b><div class="muted">${x.at}</div></div>`).join("")||'<div class="muted">No sessions logged today. Start a timer.</div>'}
-function focusStreak(){let n=0,d=dateObj(todayStr());while(true){let k=d.toLocaleDateString("en-CA");if((state.focus[k]||[]).length===0)break;n++;d.setDate(d.getDate()-1)}return n}
-function saveExamDates(){state.jeeDate=document.getElementById("jeeDate").value;state.boardDate=document.getElementById("boardDate").value;state.cuetDate=document.getElementById("cuetDate").value;save();setInlineNotice("examSavedNote","Exam countdown dates saved.")}
-function saveSeason(){let st=document.getElementById("startDate").value,en=document.getElementById("endDate").value,ph=document.getElementById("phase2Date").value;if(!st||!en||st>en){setInlineNotice("seasonSavedNote","Choose valid season dates.");return}state.startDate=st;state.endDate=en;state.phase2Date=ph||"2027-03-01";state.plan=makePlan(st,en);state.selectedDate=todayStr();save();setInlineNotice("seasonSavedNote","Roadmap regenerated. Existing chapter check-offs, check-ins, focus logs, and test scores were preserved.")}
-function exportBackup(){let blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="study-command-backup-v2.json";a.click();URL.revokeObjectURL(a.href)}
-function importBackup(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let z=JSON.parse(r.result);state={...baseState(),...z};save()}catch{setInlineNotice("seasonSavedNote","Invalid backup file.")}};r.readAsText(f)}
-function toggleResetConfirm(show){document.getElementById("resetConfirmBox")?.classList.toggle("hidden",!show)}
-function resetAll(){localStorage.removeItem(STORE);localStorage.removeItem(TIMER_STORE);state=baseState();timerState=defaultTimerState();saveTimerState();syncTimerInputs();drawTimer();toggleResetConfirm(false);save()}
-function renderAll(){renderHeader();renderDashboard();renderPlanner();renderSyllabus();renderTests();renderCheckins();renderTimer();document.getElementById("jeeDate").value=state.jeeDate;document.getElementById("boardDate").value=state.boardDate;document.getElementById("cuetDate").value=state.cuetDate;document.getElementById("startDate").value=state.startDate;document.getElementById("endDate").value=state.endDate;document.getElementById("phase2Date").value=state.phase2Date}
+    <!-- SYLLABUS -->
+    <section class="tabscreen" id="syllabus">
+      <div class="grid">
+        <div class="card s12">
+          <h2>Class 12 &amp; CUET syllabus mastery</h2>
+          <div class="callout">
+            Tick a chapter only after you have done concept learning, NCERT reading/examples, practice, and a quick revision. English and GAT modules are also included for post-board CUET preparation.
+          </div>
+          <div class="grid" style="margin-top: 13px;">
+            <div class="card s4">
+              <h3>Mathematics</h3>
+              <div id="mathList"></div>
+            </div>
+            <div class="card s4">
+              <h3>Physics</h3>
+              <div id="physList"></div>
+            </div>
+            <div class="card s4">
+              <h3>Chemistry</h3>
+              <div id="chemList"></div>
+            </div>
+            <div class="card s6">
+              <h3>English (CUET)</h3>
+              <div id="engList"></div>
+            </div>
+            <div class="card s6">
+              <h3>GAT (CUET)</h3>
+              <div id="gatList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-syncTimerInputs();
-if(timerState.isRunning){ensureTicker();tickTimer()}else{drawTimer()}
-renderAll();
-</script></body></html>
+    <!-- WEEKLY TESTS -->
+    <section class="tabscreen" id="tests">
+      <div class="grid">
+        <div class="card s12">
+          <h2>Weekly test room</h2>
+          <p class="muted">Each week's test unlocks once at least 70% of that week's scheduled tasks are complete. Every unlocked week gets a chapter-specific test blueprint, score entry, and error-analysis log.</p>
+          <div id="testsNotice"></div>
+          <div id="weekTests"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11:30 PM REVIEW -->
+    <section class="tabscreen" id="checkin">
+      <div class="grid">
+        <div class="card s12">
+          <div class="eyebrow">Nightly reset · 11:30 PM IST</div>
+          <h2>Honest progress report</h2>
+          <p class="muted">No guilt. Accurate data lets tomorrow's plan be realistic.</p>
+          <form id="checkForm">
+            <div class="formgrid">
+              <div>
+                <label class="fieldlabel" for="checkDay">Roadmap day</label>
+                <input class="field" type="number" id="checkDay" min="1" required>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkHours">Focused hours today</label>
+                <input class="field" type="number" id="checkHours" min="0" max="18" step="0.25" value="0">
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkQuestions">Questions solved</label>
+                <input class="field" type="number" id="checkQuestions" min="0" value="0">
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkScore">Weekly score (if tested)</label>
+                <input class="field" id="checkScore" placeholder="Maths __ / Physics __ / Chemistry __">
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkMath">Maths completed / pending</label>
+                <textarea class="field" rows="2" id="checkMath"></textarea>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkPhysics">Physics completed / pending</label>
+                <textarea class="field" rows="2" id="checkPhysics"></textarea>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkChem">Chemistry completed / pending</label>
+                <textarea class="field" rows="2" id="checkChem"></textarea>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkOther">English / GAT (CUET)</label>
+                <textarea class="field" rows="2" id="checkOther"></textarea>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkStruggle">What got difficult or distracted you?</label>
+                <textarea class="field" rows="3" id="checkStruggle"></textarea>
+              </div>
+              <div>
+                <label class="fieldlabel" for="checkPriority">Tomorrow's priority</label>
+                <textarea class="field" rows="3" id="checkPriority"></textarea>
+              </div>
+            </div>
+            <button class="btn" type="submit" style="margin-top: 12px;">Save nightly review</button>
+          </form>
+          <div id="savedFeedback"></div>
+        </div>
+
+        <div class="card s12">
+          <h2>Check-in history</h2>
+          <div id="checkHistory"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOCUS TRACKER -->
+    <section class="tabscreen" id="timer">
+      <div class="grid">
+        <div class="card s6">
+          <div class="eyebrow">Focus studio · background &amp; tab-closed safe</div>
+          <h2>A quiet hour for the future you</h2>
+          <div class="timerwrap">
+            <div class="timer-ring" id="timerRing">
+              <div>
+                <div class="timerdisplay" id="clock">25:00</div>
+                <div class="muted" id="timerLabel">Ready to focus</div>
+              </div>
+            </div>
+            <div class="timercontrols">
+              <button class="btn" id="timerToggle">Start</button>
+              <button class="btn light" id="timerReset">Reset</button>
+              <button class="btn light" id="timerSkip">Finish session</button>
+            </div>
+            <div class="timercontrols" style="margin-top: 12px;">
+              <button class="preset active" data-min="25">25 focus</button>
+              <button class="preset" data-min="50">50 focus</button>
+              <button class="preset" data-min="15">15 break</button>
+              <button class="preset" data-min="5">5 break</button>
+            </div>
+            <div class="timercontrols" style="margin-top: 10px;">
+              <label class="muted" for="customMinutes">Custom min:</label>
+              <input class="field" type="number" id="customMinutes" min="1" max="300" value="25" style="width: 82px; padding: 6px 8px; text-align: center;">
+              <button class="btn light" id="setCustomTimerBtn" style="padding: 7px 11px;">Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s6">
+          <h2>Today's focus statistics</h2>
+          <div class="statgrid">
+            <div class="statbox"><strong id="sessionCount">0</strong><span>sessions</span></div>
+            <div class="statbox"><strong id="timerHours">0.0</strong><span>hours</span></div>
+            <div class="statbox"><strong id="timerStreak">0</strong><span>focus streak</span></div>
+          </div>
+          <h3 style="margin-top: 15px;">Focus log</h3>
+          <div id="focusLog"></div>
+          <p class="muted">Uses wall-clock timestamps in local storage so sessions keep counting across tab switches or browser restarts until paused or finished.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS / BACKUP -->
+    <section class="tabscreen" id="settings">
+      <div class="grid">
+        <div class="card s6">
+          <h2>Exam dates</h2>
+          <label class="fieldlabel" for="jeeDate">JEE Main Session 1</label>
+          <input class="field" type="date" id="jeeDate">
+          <label class="fieldlabel" style="margin-top: 10px;" for="boardDate">Boards / first major exam</label>
+          <input class="field" type="date" id="boardDate">
+          <label class="fieldlabel" style="margin-top: 10px;" for="cuetDate">CUET UG</label>
+          <input class="field" type="date" id="cuetDate">
+          <button class="btn" style="margin-top: 12px;" onclick="saveExamDates()">Save exam dates</button>
+          <div id="examSavedNote"></div>
+        </div>
+
+        <div class="card s6">
+          <h2>Study season</h2>
+          <label class="fieldlabel" for="startDate">Roadmap start date</label>
+          <input class="field" type="date" id="startDate">
+          <label class="fieldlabel" style="margin-top: 10px;" for="endDate">Season ends</label>
+          <input class="field" type="date" id="endDate">
+          <label class="fieldlabel" style="margin-top: 10px;" for="phase2Date">Phase 2 begins</label>
+          <input class="field" type="date" id="phase2Date">
+          <button class="btn" style="margin-top: 12px;" onclick="saveSeason()">Save dates and regenerate plan</button>
+          <p class="muted">Fresh default schedule runs from Day 1 today through 31 May 2027, shifting to CUET PCM + English in March and adding GAT in April.</p>
+          <div id="seasonSavedNote"></div>
+        </div>
+
+        <div class="card s12">
+          <h2>Backup and reset</h2>
+          <p class="muted">All data is stored locally under a fresh namespace on this browser/device. Download backups periodically if you switch devices or clear browser data.</p>
+          <div class="flex" style="flex-wrap: wrap;">
+            <button class="btn" onclick="exportBackup()">Download backup</button>
+            <label class="btn light" style="cursor: pointer;">
+              Import backup
+              <input type="file" accept=".json,application/json" style="display: none;" onchange="importBackup(event)">
+            </label>
+            <button class="btn warn" onclick="toggleResetConfirm(true)">Reset all app data</button>
+          </div>
+          <div id="resetConfirmBox" class="callout hidden" style="margin-top: 12px;">
+            <b>Confirm clean reset?</b> This clears all data for this fresh workspace in this browser. Download a backup first if you want a copy.
+            <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn warn" onclick="resetAll()">Yes, clear everything</button>
+              <button class="btn light" onclick="toggleResetConfirm(false)">Cancel</button>
+            </div>
+          </div>
+          <div id="backupNotice"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">Study Command · Fresh Workspace · Progress is stored locally in this browser</div>
+  </main>
+
+  <div class="modalback" id="testModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="modalclose" onclick="closeTest()" aria-label="Close modal">×</button>
+      <div id="testContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // Fresh storage namespace; purge any legacy v2 keys on startup so old edits never bleed in.
+    const STORE = "study_command_fresh_v1";
+    const LEGACY_KEYS = ["study_command_v2", "study_command_timer_v1"];
+
+    (function purgeLegacyStorage() {
+      try {
+        LEGACY_KEYS.forEach((key) => localStorage.removeItem(key));
+      } catch (err) {
+        // Ignore storage access errors in restricted modes
+      }
+    })();
+
+    const defaultChapters = {
+      Maths: [
+        "Vector Algebra",
+        "3D Geometry",
+        "Matrices",
+        "Determinants",
+        "Continuity & Differentiability",
+        "Applications of Derivatives",
+        "Integrals",
+        "Applications of Integrals",
+        "Differential Equations",
+        "Probability",
+        "Relations & Functions",
+        "Inverse Trigonometric Functions",
+        "Linear Programming"
+      ],
+      Physics: [
+        "Current Electricity",
+        "Electrostatic Potential & Capacitance",
+        "Electric Charges & Fields",
+        "Moving Charges & Magnetism",
+        "Electromagnetic Induction",
+        "Alternating Current",
+        "Dual Nature of Radiation & Matter",
+        "Atoms",
+        "Nuclei",
+        "Semiconductor Electronics",
+        "Ray Optics",
+        "Wave Optics",
+        "EM Waves",
+        "Magnetism & Matter"
+      ],
+      Chemistry: [
+        "Solutions",
+        "Electrochemistry",
+        "Chemical Kinetics",
+        "Haloalkanes & Haloarenes",
+        "Alcohols, Phenols & Ethers",
+        "Aldehydes, Ketones & Carboxylic Acids",
+        "Amines",
+        "Biomolecules",
+        "d- & f-Block Elements",
+        "Coordination Compounds"
+      ],
+      English: [
+        "Reading comprehension",
+        "Vocabulary",
+        "Grammar",
+        "Verbal ability",
+        "Practice sets"
+      ],
+      GAT: [
+        "General knowledge",
+        "Current affairs",
+        "Quantitative aptitude",
+        "Logical reasoning",
+        "General science"
+      ]
+    };
+
+    const durations = {
+      Maths: [5, 7, 4, 5, 7, 7, 10, 4, 5, 7, 4, 3, 2],
+      Physics: [8, 8, 8, 6, 7, 6, 5, 5, 5, 7, 10, 7, 4, 5],
+      Chemistry: [8, 9, 8, 9, 10, 12, 8, 9, 8, 9]
+    };
+
+    function todayStr() {
+      return new Date().toLocaleDateString("en-CA");
+    }
+
+    function dateObj(s) {
+      return new Date(s + "T12:00:00");
+    }
+
+    function fmt(s) {
+      return dateObj(s).toLocaleDateString(undefined, {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function daysBetween(a, b) {
+      return Math.round((dateObj(b) - dateObj(a)) / 86400000);
+    }
+
+    function makeId() {
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+      }
+      return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+    }
+
+    function showNotice(targetId, message, isWarn = false) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.innerHTML = `<div class="banner ${isWarn ? "warn" : ""}">${escapeHtml(message)}</div>`;
+    }
+
+    function makePlan(start, end) {
+      const dayTasks = {};
+      const add = (d, s, t, minutes = 80, kind = "Study") => {
+        if (!dayTasks[d]) dayTasks[d] = [];
+        dayTasks[d].push({
+          id: makeId(),
+          subject: s,
+          title: t,
+          minutes,
+          kind,
+          done: false,
+          origin: "plan"
+        });
+      };
+
+      const cursor = dateObj(start);
+      const last = dateObj(end);
+      const subjects = ["Maths", "Physics", "Chemistry"];
+      const remaining = {
+        Maths: durations.Maths[0],
+        Physics: durations.Physics[0],
+        Chemistry: durations.Chemistry[0]
+      };
+      const chIndex = { Maths: 0, Physics: 0, Chemistry: 0 };
+      let day = 1;
+
+      while (cursor <= last) {
+        const ds = cursor.toLocaleDateString("en-CA");
+        if (day <= 70) {
+          subjects.forEach((s) => {
+            const ch = defaultChapters[s][chIndex[s]];
+            if (ch) {
+              const totalD = durations[s][chIndex[s]];
+              const curD = totalD - remaining[s] + 1;
+              add(
+                ds,
+                s,
+                `${ch} · concept learning / NCERT / practice (day ${curD} of ${totalD})`,
+                s === "Maths" ? 150 : 125,
+                "Chapter"
+              );
+              remaining[s]--;
+              if (remaining[s] <= 0) {
+                chIndex[s]++;
+                remaining[s] = durations[s][chIndex[s]] || 1;
+              }
+            } else {
+              add(ds, s, `${s} · Class 12 NCERT mastery & mixed practice`, s === "Maths" ? 150 : 125, "Consolidation");
+            }
+          });
+          add(ds, "Revision", "Daily recall: formulas/NCERT lines + error log + 20 mixed questions", day % 7 === 0 ? 50 : 80, "Revision");
+          if (day % 7 === 0) add(ds, "Revision", "Weekly cumulative revision + error log", 30, "Revision");
+        } else if (day <= 94) {
+          const phaseTopics = [
+            "Board sample-paper section practice + NCERT miscellaneous",
+            "Derivations, diagrams and formula recall",
+            "NCERT line-by-line + exemplar mistakes",
+            "Timed subject practice + correction"
+          ];
+          const topic = phaseTopics[(day - 71) % 4];
+          add(ds, "Maths", topic, 150, "Consolidation");
+          add(ds, "Physics", topic, 125, "Consolidation");
+          add(ds, "Chemistry", topic, 125, "Consolidation");
+          add(ds, "Revision", "Daily recall + NCERT line-by-line + error log", 80, "Revision");
+          if (day % 7 === 0) add(ds, "Test", "Weekly board/CUET cumulative test and analysis", 120, "Test");
+        } else if (ds < "2027-03-01") {
+          add(ds, "Maths", "Final NCERT revision / sample-paper sections / weak-topic repair", 150, "Consolidation");
+          add(ds, "Physics", "Formula, derivations, NCERT graphs and sample-paper section", 125, "Consolidation");
+          add(ds, "Chemistry", "NCERT line-by-line, reactions and sample-paper section", 125, "Consolidation");
+          add(ds, "Revision", "Board presentation checklist + mistake notebook", 80, "Revision");
+          if (day % 7 === 0) add(ds, "Test", "Weekly cumulative Board + CUET concept test", 120, "Test");
+        } else if (ds < "2027-04-01") {
+          const cycle = (day - 95) % 7;
+          const mx = [
+            "NCERT Maths line-by-line + 40 CUET MCQs",
+            "Maths speed drill + 40 MCQs",
+            "Maths weak-area revision + 40 MCQs",
+            "Maths mixed mock section + analysis",
+            "Maths formula/definition recall + 30 MCQs",
+            "Maths timed mixed set + error log",
+            "Weekly PCM + English mini-mock + analysis"
+          ];
+          const px = [
+            "Physics NCERT reading + 35 MCQs",
+            "Physics formulas/graphs + 35 MCQs",
+            "Physics NCERT statements + 35 MCQs",
+            "Physics timed set + analysis",
+            "Physics weak chapters + 35 MCQs",
+            "Physics mixed set + error log",
+            "Weekly PCM + English mini-mock + analysis"
+          ];
+          const cx = [
+            "Chemistry NCERT line-by-line + 40 MCQs",
+            "Chemistry reactions/definitions + 40 MCQs",
+            "Chemistry tables/exceptions + 40 MCQs",
+            "Chemistry timed set + analysis",
+            "Chemistry weak chapters + 40 MCQs",
+            "Chemistry mixed set + error log",
+            "Weekly PCM + English mini-mock + analysis"
+          ];
+          const ex = [
+            "English reading comprehension + vocabulary",
+            "English grammar and verbal ability drills",
+            "English timed reading set + review",
+            "English vocabulary/grammar recall",
+            "English practice set + error log",
+            "English weak area practice",
+            "English CUET mini-mock + analysis"
+          ];
+          add(ds, "Maths", mx[cycle], cycle === 6 ? 120 : 150, "CUET");
+          add(ds, "Physics", px[cycle], cycle === 6 ? 90 : 120, "CUET");
+          add(ds, "Chemistry", cx[cycle], cycle === 6 ? 90 : 120, "CUET");
+          add(ds, "English", ex[cycle], cycle === 6 ? 45 : 75, "CUET");
+          add(ds, "Revision", "NCERT recall, error notebook and 30 mixed questions", cycle === 6 ? 30 : 75, "Revision");
+          if (cycle === 6) add(ds, "Test", "CUET PCM + English mini-mock: timed sections + review", 150, "Test");
+        } else {
+          const cycle = (day - 126) % 7;
+          const math = [
+            "Maths NCERT mastery + 50 MCQs",
+            "Maths speed/accuracy set + 50 MCQs",
+            "Maths weak chapter repair + 50 MCQs",
+            "Maths full timed section + analysis",
+            "Maths mixed chapters + 50 MCQs",
+            "Maths formula drill + 50 MCQs",
+            "CUET Maths mock + error analysis"
+          ];
+          const phys = [
+            "Physics NCERT line-by-line + 45 MCQs",
+            "Physics graphs/formulas + 45 MCQs",
+            "Physics statements + 45 MCQs",
+            "Physics timed section + analysis",
+            "Physics mixed chapters + 45 MCQs",
+            "Physics weak topics + 45 MCQs",
+            "CUET Physics mock + error analysis"
+          ];
+          const chem = [
+            "Chemistry NCERT facts + 50 MCQs",
+            "Chemistry reaction/exception recall + 50 MCQs",
+            "Chemistry tables + 50 MCQs",
+            "Chemistry timed section + analysis",
+            "Chemistry mixed chapters + 50 MCQs",
+            "Chemistry weak topics + 50 MCQs",
+            "CUET Chemistry mock + error analysis"
+          ];
+          const eng = [
+            "English reading comprehension + vocabulary",
+            "English grammar and verbal ability drills",
+            "English timed reading set + review",
+            "English vocabulary/grammar recall",
+            "English practice set + error log",
+            "English weak area practice",
+            "English mini-mock + analysis"
+          ];
+          const gat = [
+            "GAT current affairs + GK",
+            "GAT quant aptitude fundamentals + practice",
+            "GAT logical reasoning drills",
+            "GAT general science + static GK",
+            "GAT mixed timed practice",
+            "GAT weak-topic practice",
+            "GAT mini-mock + analysis"
+          ];
+          add(ds, "Maths", math[cycle], cycle === 6 ? 120 : 150, "CUET");
+          add(ds, "Physics", phys[cycle], cycle === 6 ? 90 : 120, "CUET");
+          add(ds, "Chemistry", chem[cycle], cycle === 6 ? 90 : 120, "CUET");
+          add(ds, "English", eng[cycle], cycle === 6 ? 45 : 90, "CUET");
+          add(ds, "GAT", gat[cycle], cycle === 6 ? 45 : 90, "CUET");
+          add(ds, "Revision", "Flash recall + error notebook + review previous mock", 30, "Revision");
+          if (cycle === 6) add(ds, "Test", "Weekly full CUET practice + detailed error analysis", 180, "Test");
+        }
+        cursor.setDate(cursor.getDate() + 1);
+        day++;
+      }
+      return dayTasks;
+    }
+
+    function defaultTimer() {
+      return {
+        chosenMinutes: 25,
+        totalSeconds: 25 * 60,
+        remainingWhenPaused: 25 * 60,
+        isRunning: false,
+        endTime: null
+      };
+    }
+
+    function baseState() {
+      const start = todayStr();
+      const end = "2027-05-31";
+      return {
+        startDate: start,
+        endDate: end,
+        phase2Date: "2027-03-01",
+        jeeDate: "2027-01-20",
+        boardDate: "2027-02-16",
+        cuetDate: "2027-05-15",
+        selectedDate: start,
+        plan: makePlan(start, end),
+        chapters: defaultChapters,
+        chapterDone: {
+          Maths: [],
+          Physics: [],
+          Chemistry: [],
+          English: [],
+          GAT: []
+        },
+        checkins: [],
+        focus: {},
+        testResults: [],
+        backlog: [],
+        timer: defaultTimer()
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE);
+        if (!raw) return baseState();
+        const parsed = JSON.parse(raw);
+        const start = parsed.startDate || todayStr();
+        const end = parsed.endDate || "2027-05-31";
+        return {
+          ...baseState(),
+          ...parsed,
+          startDate: start,
+          endDate: end,
+          phase2Date: parsed.phase2Date || "2027-03-01",
+          jeeDate: parsed.jeeDate || "2027-01-20",
+          boardDate: parsed.boardDate || "2027-02-16",
+          cuetDate: parsed.cuetDate || "2027-05-15",
+          selectedDate: parsed.selectedDate || todayStr(),
+          chapters: defaultChapters,
+          chapterDone: {
+            Maths: [],
+            Physics: [],
+            Chemistry: [],
+            English: [],
+            GAT: [],
+            ...(parsed.chapterDone || {})
+          },
+          plan: parsed.plan || makePlan(start, end),
+          timer: {
+            ...defaultTimer(),
+            ...(parsed.timer || {})
+          }
+        };
+      } catch (err) {
+        return baseState();
+      }
+    }
+
+    let state = loadState();
+    let timerInterval = null;
+    let editingTaskRef = null;
+
+    function save() {
+      try {
+        localStorage.setItem(STORE, JSON.stringify(state));
+      } catch (err) {
+        // Handle quota/storage restrictions gracefully
+      }
+      renderAll();
+    }
+
+    function roadmapDay(date) {
+      return Math.max(1, daysBetween(state.startDate, date) + 1);
+    }
+
+    function phaseFor(date) {
+      if (date >= "2027-04-01") return "Phase 3 · Full CUET (PCM + English + GAT)";
+      if (date >= (state.phase2Date || "2027-03-01")) return "Phase 2 · Post-Boards CUET (PCM + English)";
+      if (roadmapDay(date) <= 70) return "Phase 1 · Syllabus sprint";
+      if (roadmapDay(date) <= 94) return "Phase 1 · Boards consolidation";
+      return "CUET consolidation";
+    }
+
+    function taskList(date) {
+      if (!state.plan[date]) state.plan[date] = [];
+      return state.plan[date];
+    }
+
+    function screen(name) {
+      document.querySelectorAll(".tabscreen").forEach((sec) => sec.classList.remove("active"));
+      const target = document.getElementById(name);
+      if (target) target.classList.add("active");
+      document.querySelectorAll(".nav button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.screen === name);
+      });
+      renderAll();
+    }
+
+    document.querySelectorAll(".nav button").forEach((btn) => {
+      btn.addEventListener("click", () => screen(btn.dataset.screen));
+    });
+
+    function goScreen(name) {
+      screen(name);
+    }
+
+    function focusSetting(fieldId) {
+      screen("settings");
+      setTimeout(() => {
+        const el = document.getElementById(fieldId);
+        if (el) {
+          el.focus();
+          if (typeof el.showPicker === "function") {
+            try { el.showPicker(); } catch (e) {}
+          }
+        }
+      }, 60);
+    }
+
+    function moveDate(deltaDays) {
+      const d = dateObj(state.selectedDate);
+      d.setDate(d.getDate() + deltaDays);
+      state.selectedDate = d.toLocaleDateString("en-CA");
+      save();
+    }
+
+    function jumpToday() {
+      state.selectedDate = todayStr();
+      save();
+    }
+
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[ch]));
+    }
+
+    function taskTagClass(subject) {
+      if (subject === "Physics") return "p";
+      if (subject === "Chemistry") return "c";
+      if (subject === "English" || subject === "GAT") return "e";
+      if (subject === "Test") return "t";
+      return "";
+    }
+
+    function taskHTML(t, date, idx, compact = false) {
+      return `
+        <div class="task ${t.done ? "done" : ""}">
+          <input type="checkbox" ${t.done ? "checked" : ""} onchange="toggleTask('${date}', ${idx}, this.checked)">
+          <div class="taskbody">
+            <b>${escapeHtml(t.title)}</b>
+            <span class="tag ${taskTagClass(t.subject)}">${escapeHtml(t.subject)}</span>
+            <div class="muted">${t.minutes || 60} min · ${escapeHtml(t.kind || "Task")}</div>
+          </div>
+          ${compact ? "" : `
+            <div class="taskactions">
+              <button class="mini" onclick="editTask('${date}', ${idx})">Edit</button>
+              <button class="mini" onclick="removeTask('${date}', ${idx})">×</button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function toggleTask(date, idx, checked) {
+      const list = taskList(date);
+      if (!list[idx]) return;
+      list[idx].done = checked;
+      if (checked && list[idx].kind === "Chapter") {
+        const sub = list[idx].subject;
+        const title = list[idx].title;
+        const matched = (state.chapters[sub] || []).find((ch) => title.includes(ch));
+        if (matched && !(state.chapterDone[sub] || []).includes(matched)) {
+          state.chapterDone[sub].push(matched);
+        }
+      }
+      save();
+    }
+
+    function removeTask(date, idx) {
+      taskList(date).splice(idx, 1);
+      save();
+    }
+
+    function editTask(date, idx) {
+      const item = taskList(date)[idx];
+      if (!item) return;
+      editingTaskRef = { date, idx };
+      document.getElementById("testContent").innerHTML = `
+        <h3>Edit task</h3>
+        <label class="fieldlabel" for="editTaskInput">Task description</label>
+        <input class="field" id="editTaskInput" value="${escapeHtml(item.title)}">
+        <button class="btn" style="margin-top: 12px;" onclick="confirmEditTask()">Save changes</button>
+      `;
+      document.getElementById("testModal").classList.add("open");
+      setTimeout(() => document.getElementById("editTaskInput")?.focus(), 40);
+    }
+
+    function confirmEditTask() {
+      if (!editingTaskRef) return;
+      const val = document.getElementById("editTaskInput")?.value.trim();
+      if (!val) return;
+      const { date, idx } = editingTaskRef;
+      if (state.plan[date] && state.plan[date][idx]) {
+        state.plan[date][idx].title = val;
+      }
+      editingTaskRef = null;
+      closeTest();
+      save();
+      showNotice("plannerNotice", "Task updated.");
+    }
+
+    function addManualTask() {
+      const input = document.getElementById("addTaskText");
+      const text = input.value.trim();
+      if (!text) {
+        showNotice("plannerNotice", "Enter a task description before adding.", true);
+        return;
+      }
+      const subject = document.getElementById("addTaskSubject").value;
+      taskList(state.selectedDate).push({
+        id: makeId(),
+        subject,
+        title: text,
+        minutes: 60,
+        kind: "Personal task",
+        done: false,
+        origin: "manual"
+      });
+      input.value = "";
+      save();
+      showNotice("plannerNotice", "Added task to this day.");
+    }
+
+    function rescheduleBacklog() {
+      const from = state.selectedDate;
+      const unfinished = taskList(from).filter((t) => !t.done);
+      if (!unfinished.length) {
+        showNotice("plannerNotice", "No unfinished tasks on this day to reschedule.");
+        return;
+      }
+      const cursor = dateObj(from);
+      cursor.setDate(cursor.getDate() + 1);
+      const movedDays = [];
+
+      unfinished.forEach((t) => {
+        let targetDate = "";
+        for (let tries = 0; tries < 14; tries++) {
+          const ds = cursor.toLocaleDateString("en-CA");
+          const existing = state.plan[ds] || [];
+          const usedMin = existing.reduce((sum, item) => sum + (item.minutes || 0), 0);
+          const capMin = ds >= "2027-04-01" ? 600 : 480;
+          if (usedMin + (t.minutes || 60) <= capMin || tries === 13) {
+            targetDate = ds;
+            break;
+          }
+          cursor.setDate(cursor.getDate() + 1);
+        }
+        if (!state.plan[targetDate]) state.plan[targetDate] = [];
+        const carried = {
+          ...t,
+          id: makeId(),
+          title: "[Carried forward] " + t.title,
+          origin: "backlog",
+          done: false
+        };
+        state.plan[targetDate].push(carried);
+        state.backlog.push({
+          from,
+          to: targetDate,
+          task: carried.title,
+          subject: carried.subject
+        });
+        movedDays.push(targetDate);
+        cursor = dateObj(targetDate);
+        cursor.setDate(cursor.getDate() + 1);
+      });
+
+      state.plan[from] = taskList(from).filter((t) => t.done);
+      state.selectedDate = movedDays[0] || from;
+      save();
+      showNotice(
+        "plannerNotice",
+        `${unfinished.length} unfinished task(s) carried forward across ${new Set(movedDays).size} day(s).`
+      );
+    }
+
+    function renderChapterColumn(subject, targetId) {
+      const list = state.chapters[subject] || [];
+      const doneList = state.chapterDone[subject] || [];
+      document.getElementById(targetId).innerHTML = list.map((ch) => {
+        const checked = doneList.includes(ch) ? "checked" : "";
+        return `
+          <div class="chapteritem">
+            <label>
+              <input type="checkbox" ${checked} onchange="toggleChapter('${subject}', ${JSON.stringify(ch)}, this.checked)">
+              <span>${escapeHtml(ch)}</span>
+            </label>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function toggleChapter(subject, chapter, checked) {
+      if (!state.chapterDone[subject]) state.chapterDone[subject] = [];
+      if (checked && !state.chapterDone[subject].includes(chapter)) {
+        state.chapterDone[subject].push(chapter);
+      } else if (!checked) {
+        state.chapterDone[subject] = state.chapterDone[subject].filter((x) => x !== chapter);
+      }
+      save();
+    }
+
+    function renderSubjectProgress() {
+      return ["Maths", "Physics", "Chemistry"].map((s) => {
+        const total = (state.chapters[s] || []).length;
+        const done = (state.chapterDone[s] || []).length;
+        const pct = total ? Math.round((done / total) * 100) : 0;
+        const dotClass = s === "Physics" ? "p" : s === "Chemistry" ? "c" : "";
+        return `
+          <div class="subjectline">
+            <span class="dot ${dotClass}"></span>
+            <div style="flex: 1;">
+              <div class="flex">
+                <b>${s}</b>
+                <span class="muted">${done}/${total} · ${pct}%</span>
+              </div>
+              <div class="progress"><i style="width: ${pct}%;"></i></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderDashboard() {
+      const d = todayStr();
+      const tasks = taskList(d);
+      const total = tasks.length;
+      const done = tasks.filter((t) => t.done).length;
+      document.getElementById("dayMetric").textContent = roadmapDay(d);
+      document.getElementById("phaseMetric").textContent = phaseFor(d);
+      document.getElementById("doneMetric").textContent = `${done}/${total}`;
+      document.getElementById("dailyBar").style.width = total ? `${(100 * done) / total}%` : "0%";
+
+      const focusedMin = (state.focus[d] || []).reduce((acc, item) => acc + (item.minutes || 0), 0);
+      document.getElementById("hoursMetric").textContent = `${(focusedMin / 60).toFixed(1)}h`;
+
+      const todayCheck = state.checkins.find((c) => c.date === d);
+      document.getElementById("questionsMetric").textContent = todayCheck ? todayCheck.questions : 0;
+
+      document.getElementById("homeTasks").innerHTML = tasks
+        .slice(0, 6)
+        .map((t, idx) => taskHTML(t, d, idx, true))
+        .join("") || '<div class="muted">No daily targets generated for this date.</div>';
+
+      document.getElementById("progressSubjects").innerHTML = renderSubjectProgress();
+
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("mentorNote").textContent = pct >= 80
+        ? "Strong execution. Finish remaining items, then focus on error review rather than adding extra load."
+        : pct >= 40
+          ? "Steady momentum. Complete the highest-priority block next and carry forward only what cannot fit."
+          : "Start with the smallest first task. One focused session builds real momentum.";
+
+      const latest = state.checkins[0];
+      document.getElementById("latestCheck").innerHTML = latest
+        ? `<b>${escapeHtml(fmt(latest.date))} · Day ${escapeHtml(latest.day)}</b>
+           <p class="smalltext" style="margin: 6px 0;">${escapeHtml(latest.hours)} focused hours · ${escapeHtml(latest.questions)} questions</p>
+           <p class="smalltext" style="margin: 4px 0;"><b>Difficulty:</b> ${escapeHtml(latest.struggle || "—")}</p>
+           <p class="smalltext" style="margin: 4px 0;"><b>Next:</b> ${escapeHtml(latest.priority || "—")}</p>`
+        : "No review saved yet.";
+    }
+
+    function renderPlanner() {
+      const d = state.selectedDate;
+      const tasks = taskList(d);
+      const scheduledMin = tasks.reduce((sum, t) => sum + (t.minutes || 0), 0);
+      document.getElementById("plannerDate").textContent = `${fmt(d)} · Day ${roadmapDay(d)}`;
+      document.getElementById("plannerPhase").textContent = `${phaseFor(d)} · ${(scheduledMin / 60).toFixed(1)} scheduled hours`;
+      document.getElementById("plannerList").innerHTML = tasks
+        .map((t, idx) => taskHTML(t, d, idx, false))
+        .join("") || '<div class="muted">Nothing scheduled for this date. Add a task below.</div>';
+
+      document.getElementById("backlogList").innerHTML = state.backlog
+        .slice(-12)
+        .reverse()
+        .map((item) => `
+          <div class="historyrow">
+            <b>${escapeHtml(item.task)}</b>
+            <div class="muted">${escapeHtml(item.subject)} · moved ${escapeHtml(fmt(item.from))} → ${escapeHtml(fmt(item.to))}</div>
+          </div>
+        `).join("") || '<div class="muted">No backlog carry-forwards recorded.</div>';
+    }
+
+    function renderSyllabus() {
+      renderChapterColumn("Maths", "mathList");
+      renderChapterColumn("Physics", "physList");
+      renderChapterColumn("Chemistry", "chemList");
+      renderChapterColumn("English", "engList");
+      renderChapterColumn("GAT", "gatList");
+    }
+
+    function weekRange(week) {
+      const start = dateObj(state.startDate);
+      start.setDate(start.getDate() + (week - 1) * 7);
+      const end = new Date(start);
+      end.setDate(end.getDate() + 6);
+      return [start.toLocaleDateString("en-CA"), end.toLocaleDateString("en-CA")];
+    }
+
+    function weekTasks(week) {
+      const [a, b] = weekRange(week);
+      const list = [];
+      const cur = dateObj(a);
+      const stop = dateObj(b);
+      while (cur <= stop) {
+        const ds = cur.toLocaleDateString("en-CA");
+        list.push(...(state.plan[ds] || []));
+        cur.setDate(cur.getDate() + 1);
+      }
+      return list;
+    }
+
+    function weekComplete(week) {
+      const list = weekTasks(week);
+      const done = list.filter((t) => t.done).length;
+      const total = list.length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      return { done, total, percent, unlock: total > 0 && done / total >= 0.7 };
+    }
+
+    function chaptersOfWeek(week) {
+      const list = weekTasks(week);
+      return [...new Set(
+        list
+          .filter((t) => !["Revision", "Test"].includes(t.kind))
+          .map((t) => `${t.subject}: ${t.title.split(" · ")[0]}`)
+      )];
+    }
+
+    function renderTests() {
+      const totalDays = Math.max(1, daysBetween(state.startDate, state.endDate) + 1);
+      const totalWeeks = Math.ceil(totalDays / 7);
+      let html = "";
+
+      for (let w = 1; w <= totalWeeks; w++) {
+        const st = weekComplete(w);
+        const [a, b] = weekRange(w);
+        const record = state.testResults.find((r) => r.week === w);
+        const covered = chaptersOfWeek(w).slice(0, 10).join(" · ") || "CUET practice cycle";
+        html += `
+          <div class="testweek ${st.unlock ? "" : "locked"}">
+            <div class="flex">
+              <div>
+                <h3>Week ${w} · ${escapeHtml(fmt(a))} to ${escapeHtml(fmt(b))}</h3>
+                <div class="muted">${st.done}/${st.total} tasks · ${st.percent}% completed · ${st.unlock ? "Test unlocked" : "Complete at least 70% to unlock"}</div>
+              </div>
+              <span class="weekbadge">${record ? `Score ${record.score}/${record.max}` : st.unlock ? "READY" : "LOCKED"}</span>
+            </div>
+            <div class="progress"><i style="width: ${st.percent}%;"></i></div>
+            <div class="smalltext" style="margin: 10px 0;"><b>Covered:</b> ${escapeHtml(covered)}</div>
+            <button class="btn ${st.unlock ? "" : "light"}" ${st.unlock ? "" : "disabled"} onclick="openWeekTest(${w})">
+              ${record ? "Retake / log score" : "Start weekly test"}
+            </button>
+            ${record ? `<div class="testresult">Last attempt: ${record.score}/${record.max} (${escapeHtml(record.date)}) · ${escapeHtml(record.note || "")}</div>` : ""}
+          </div>
+        `;
+      }
+      document.getElementById("weekTests").innerHTML = html;
+    }
+
+    function questionTemplates(week) {
+      const topics = chaptersOfWeek(week);
+      const subjects = [...new Set(
+        weekTasks(week)
+          .map((t) => t.subject)
+          .filter((s) => ["Maths", "Physics", "Chemistry", "English", "GAT"].includes(s))
+      )];
+
+      return subjects.map((s) => {
+        const ch = topics
+          .filter((item) => item.startsWith(s + ":"))
+          .map((item) => item.replace(s + ": ", ""));
+        if (!ch.length) return null;
+        const count = ["Maths", "Physics", "Chemistry"].includes(s) ? 10 : 5;
+        const promptText = s === "Maths"
+          ? "Solve 10 mixed problems covering NCERT/Board steps and CUET speed questions."
+          : s === "Physics"
+            ? "Answer conceptual NCERT questions, graphs/units, and numerical applications."
+            : s === "Chemistry"
+              ? "Complete NCERT line/fact items, reactions/exceptions, and numericals."
+              : s === "English"
+                ? "Complete a timed reading comprehension, grammar, and vocabulary drill."
+                : "Complete a timed GK/current affairs, quant, reasoning, and science set.";
+        return { subject: s, chapters: ch, task: promptText, marks: count * 2 };
+      }).filter(Boolean);
+    }
+
+    function openWeekTest(week) {
+      if (!weekComplete(week).unlock) {
+        showNotice("testsNotice", "Complete at least 70% of this week's scheduled tasks to unlock the test.", true);
+        return;
+      }
+      const blueprint = questionTemplates(week);
+      const [a, b] = weekRange(week);
+      const maxMarks = blueprint.reduce((sum, bItem) => sum + bItem.marks, 0) || 20;
+
+      document.getElementById("testContent").innerHTML = `
+        <h2>Week ${week} cumulative test</h2>
+        <div class="muted">${escapeHtml(fmt(a))} — ${escapeHtml(fmt(b))}</div>
+        <div class="callout" style="margin: 12px 0;">
+          Attempt without notes using your NCERT and practice material, then log your scores and error notes below.
+        </div>
+        ${blueprint.length ? blueprint.map((bItem, idx) => `
+          <div class="testq">
+            <b>${escapeHtml(bItem.subject)} · ${bItem.marks} suggested marks</b>
+            <p class="smalltext" style="margin: 4px 0;"><b>Coverage:</b> ${escapeHtml(bItem.chapters.join(", "))}</p>
+            <p class="smalltext" style="margin: 4px 0;">${escapeHtml(bItem.task)}</p>
+            <label class="fieldlabel" style="margin-top: 8px;" for="score${idx}">Score earned (max ${bItem.marks})</label>
+            <input class="field" type="number" min="0" max="${bItem.marks}" id="score${idx}" value="0">
+          </div>
+        `).join("") : `
+          <div class="testq">
+            <label class="fieldlabel" for="score0">Total score earned (max ${maxMarks})</label>
+            <input class="field" type="number" min="0" max="${maxMarks}" id="score0" value="0">
+          </div>
+        `}
+        <label class="fieldlabel" style="margin-top: 12px;" for="testNote">Mistake analysis / weak areas</label>
+        <textarea class="field" id="testNote" rows="3" placeholder="Note calculation slips, misread NCERT lines, or time pressure..."></textarea>
+        <button class="btn" style="margin-top: 12px;" onclick="saveWeekScore(${week}, ${maxMarks}, ${Math.max(1, blueprint.length)})">
+          Save score &amp; analysis
+        </button>
+      `;
+      document.getElementById("testModal").classList.add("open");
+    }
+
+    function closeTest() {
+      editingTaskRef = null;
+      document.getElementById("testModal").classList.remove("open");
+    }
+
+    function saveWeekScore(week, max, count) {
+      let score = 0;
+      for (let i = 0; i < count; i++) {
+        score += Number(document.getElementById("score" + i)?.value || 0);
+      }
+      const note = document.getElementById("testNote")?.value.trim() || "";
+      state.testResults.unshift({
+        week,
+        date: todayStr(),
+        score,
+        max,
+        note
+      });
+      save();
+      closeTest();
+      showNotice("testsNotice", `Saved Week ${week} score: ${score}/${max}.`);
+    }
+
+    document.getElementById("checkForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const entry = {
+        date: todayStr(),
+        day: Number(document.getElementById("checkDay").value || roadmapDay(todayStr())),
+        hours: Number(document.getElementById("checkHours").value || 0),
+        questions: Number(document.getElementById("checkQuestions").value || 0),
+        score: document.getElementById("checkScore").value.trim(),
+        math: document.getElementById("checkMath").value.trim(),
+        physics: document.getElementById("checkPhysics").value.trim(),
+        chem: document.getElementById("checkChem").value.trim(),
+        other: document.getElementById("checkOther").value.trim(),
+        struggle: document.getElementById("checkStruggle").value.trim(),
+        priority: document.getElementById("checkPriority").value.trim()
+      };
+      state.checkins.unshift(entry);
+      save();
+      showNotice("savedFeedback", "Nightly review saved. Start tomorrow with your listed priority.");
+    });
+
+    function renderCheckins() {
+      const latest = state.checkins[0];
+      const dayInput = document.getElementById("checkDay");
+      if (dayInput && document.activeElement !== dayInput) {
+        dayInput.value = latest && latest.date === todayStr() ? latest.day : roadmapDay(todayStr());
+      }
+      document.getElementById("checkHistory").innerHTML = state.checkins.map((x) => `
+        <div class="historyrow">
+          <b>${escapeHtml(fmt(x.date))} · Day ${escapeHtml(x.day)}</b>
+          <div class="muted">${escapeHtml(x.hours)} hours · ${escapeHtml(x.questions)} questions · ${escapeHtml(x.score || "No test score")}</div>
+          <p class="smalltext" style="margin: 6px 0 0;">
+            <b>Struggle:</b> ${escapeHtml(x.struggle || "—")}<br>
+            <b>Tomorrow:</b> ${escapeHtml(x.priority || "—")}
+          </p>
+        </div>
+      `).join("") || '<div class="muted">Saved reviews will show here.</div>';
+    }
+
+    // Wall-clock timer persistence so sessions continue across tab switches and page reloads
+    function getRemainingSeconds() {
+      const t = state.timer;
+      if (t.isRunning && t.endTime) {
+        return Math.max(0, Math.ceil((t.endTime - Date.now()) / 1000));
+      }
+      return Math.max(0, t.remainingWhenPaused);
+    }
+
+    function playChime() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.001, ctx.currentTime + idx * 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.1, ctx.currentTime + idx * 0.16 + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + idx * 0.16 + 0.65);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.16);
+          osc.stop(ctx.currentTime + idx * 0.16 + 0.7);
+        });
+      } catch (err) {
+        // Ignore audio restrictions
+      }
+    }
+
+    function syncTimerControls() {
+      document.querySelectorAll(".preset").forEach((btn) => {
+        btn.classList.toggle("active", Number(btn.dataset.min) === state.timer.chosenMinutes);
+      });
+      const customInp = document.getElementById("customMinutes");
+      if (customInp && document.activeElement !== customInp) {
+        customInp.value = state.timer.chosenMinutes;
+      }
+    }
+
+    function drawTimer() {
+      const rem = getRemainingSeconds();
+      const mm = Math.floor(rem / 60);
+      const ss = rem % 60;
+      const formatted = `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+      document.getElementById("clock").textContent = formatted;
+      const total = Math.max(1, state.timer.totalSeconds);
+      const pct = Math.min(100, Math.max(0, 100 * (1 - rem / total)));
+      document.getElementById("timerRing").style.setProperty("--ring", `${pct}%`);
+
+      const toggleBtn = document.getElementById("timerToggle");
+      const labelEl = document.getElementById("timerLabel");
+      const hdrStatus = document.getElementById("headerStatus");
+
+      if (state.timer.isRunning) {
+        toggleBtn.textContent = "Pause";
+        labelEl.textContent = "Running in background";
+        if (hdrStatus) hdrStatus.textContent = `focus · ${formatted}`;
+      } else {
+        if (hdrStatus) hdrStatus.textContent = "fresh · local-first";
+        if (rem < state.timer.totalSeconds && rem > 0) {
+          toggleBtn.textContent = "Resume";
+          labelEl.textContent = "Paused";
+        } else {
+          toggleBtn.textContent = "Start";
+        }
+      }
+    }
+
+    function tickTimer() {
+      if (!state.timer.isRunning) {
+        drawTimer();
+        return;
+      }
+      const rem = getRemainingSeconds();
+      drawTimer();
+      if (rem <= 0) {
+        const finishedMin = state.timer.chosenMinutes;
+        state.timer.isRunning = false;
+        state.timer.endTime = null;
+        state.timer.remainingWhenPaused = state.timer.totalSeconds;
+        stopTimerLoop();
+        logFocusSession(finishedMin, true);
+        drawTimer();
+        document.getElementById("timerLabel").textContent = "Session complete · take a break";
+      }
+    }
+
+    function ensureTimerLoop() {
+      if (!timerInterval) {
+        timerInterval = setInterval(tickTimer, 500);
+      }
+    }
+
+    function stopTimerLoop() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function toggleTimer() {
+      if (state.timer.isRunning) {
+        state.timer.remainingWhenPaused = getRemainingSeconds();
+        state.timer.isRunning = false;
+        state.timer.endTime = null;
+        stopTimerLoop();
+        save();
+        return;
+      }
+      const startSec = state.timer.remainingWhenPaused > 0
+        ? state.timer.remainingWhenPaused
+        : state.timer.totalSeconds;
+      state.timer.isRunning = true;
+      state.timer.endTime = Date.now() + startSec * 1000;
+      ensureTimerLoop();
+      save();
+    }
+
+    function applyCustomMinutes(mins) {
+      const clamped = Math.max(1, Math.min(300, Math.round(Number(mins) || 25)));
+      stopTimerLoop();
+      state.timer = {
+        chosenMinutes: clamped,
+        totalSeconds: clamped * 60,
+        remainingWhenPaused: clamped * 60,
+        isRunning: false,
+        endTime: null
+      };
+      save();
+      syncTimerControls();
+      document.getElementById("timerLabel").textContent = `Set to ${clamped} min · ready`;
+    }
+
+    function resetTimer() {
+      applyCustomMinutes(state.timer.chosenMinutes);
+      document.getElementById("timerLabel").textContent = "Ready to focus";
+    }
+
+    function logFocusSession(minutes, ringBell = false) {
+      const d = todayStr();
+      if (!state.focus[d]) state.focus[d] = [];
+      state.focus[d].push({
+        minutes,
+        at: new Date().toLocaleTimeString()
+      });
+      save();
+      if (ringBell) playChime();
+      document.getElementById("timerLabel").textContent = "Logged. Take a mindful break.";
+    }
+
+    document.getElementById("timerToggle").addEventListener("click", toggleTimer);
+    document.getElementById("timerReset").addEventListener("click", resetTimer);
+    document.getElementById("timerSkip").addEventListener("click", () => {
+      const elapsedSec = state.timer.totalSeconds - getRemainingSeconds();
+      const mins = elapsedSec >= 60 ? Math.max(1, Math.round(elapsedSec / 60)) : state.timer.chosenMinutes;
+      logFocusSession(mins, false);
+      resetTimer();
+      document.getElementById("timerLabel").textContent = "Session logged";
+    });
+
+    document.querySelectorAll(".preset").forEach((btn) => {
+      btn.addEventListener("click", () => applyCustomMinutes(Number(btn.dataset.min)));
+    });
+
+    document.getElementById("setCustomTimerBtn").addEventListener("click", () => {
+      applyCustomMinutes(document.getElementById("customMinutes").value);
+    });
+
+    document.getElementById("customMinutes").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applyCustomMinutes(document.getElementById("customMinutes").value);
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) tickTimer();
+    });
+    window.addEventListener("focus", tickTimer);
+
+    function focusStreak() {
+      let streak = 0;
+      const cursor = dateObj(todayStr());
+      while (true) {
+        const key = cursor.toLocaleDateString("en-CA");
+        if (!(state.focus[key] || []).length) break;
+        streak++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return streak;
+    }
+
+    function renderTimer() {
+      const todayFocus = state.focus[todayStr()] || [];
+      const totalMin = todayFocus.reduce((sum, item) => sum + (item.minutes || 0), 0);
+      document.getElementById("sessionCount").textContent = todayFocus.length;
+      document.getElementById("timerHours").textContent = (totalMin / 60).toFixed(1);
+      document.getElementById("timerStreak").textContent = focusStreak();
+      document.getElementById("focusLog").innerHTML = todayFocus
+        .map((item) => `
+          <div class="historyrow">
+            <b>${escapeHtml(item.minutes)} min focus</b>
+            <div class="muted">${escapeHtml(item.at)}</div>
+          </div>
+        `).join("") || '<div class="muted">No sessions logged today. Start the timer when ready.</div>';
+      syncTimerControls();
+      drawTimer();
+    }
+
+    function countdown(elId, targetDate, label) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      if (!targetDate) {
+        el.textContent = `${label} · date not set`;
+        return;
+      }
+      const diff = daysBetween(todayStr(), targetDate);
+      el.textContent = diff > 0
+        ? `${label} · ${diff} days left`
+        : diff === 0
+          ? `${label} · today`
+          : `${label} · passed`;
+    }
+
+    function renderHeader() {
+      const now = new Date();
+      document.getElementById("dateDisplay").textContent = now.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric"
+      });
+      document.getElementById("weekdayDisplay").textContent = now.toLocaleDateString(undefined, {
+        weekday: "long"
+      });
+      countdown("jeeCount", state.jeeDate, "JEE");
+      countdown("boardCount", state.boardDate, "Boards");
+      countdown("cuetCount", state.cuetDate, "CUET");
+      countdown("seasonCount", state.endDate, "End of study season");
+      document.getElementById("heroTitle").textContent = now.getHours() < 12
+        ? "Good morning."
+        : now.getHours() < 17
+          ? "Keep your momentum."
+          : "A little progress still counts.";
+    }
+
+    function saveExamDates() {
+      state.jeeDate = document.getElementById("jeeDate").value;
+      state.boardDate = document.getElementById("boardDate").value;
+      state.cuetDate = document.getElementById("cuetDate").value;
+      save();
+      showNotice("examSavedNote", "Exam countdown dates updated.");
+    }
+
+    function saveSeason() {
+      const st = document.getElementById("startDate").value;
+      const en = document.getElementById("endDate").value;
+      const ph = document.getElementById("phase2Date").value;
+      if (!st || !en || st > en) {
+        showNotice("seasonSavedNote", "Choose a valid start and end date range.", true);
+        return;
+      }
+      state.startDate = st;
+      state.endDate = en;
+      state.phase2Date = ph || "2027-03-01";
+      state.plan = makePlan(st, en);
+      state.selectedDate = todayStr();
+      save();
+      showNotice("seasonSavedNote", "Season dates saved and daily plan regenerated.");
+    }
+
+    function exportBackup() {
+      try {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `study-command-fresh-${todayStr()}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+        showNotice("backupNotice", "Backup JSON downloaded.");
+      } catch (err) {
+        showNotice("backupNotice", "Could not export backup file in this browser.", true);
+      }
+    }
+
+    function importBackup(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          const start = parsed.startDate || todayStr();
+          const end = parsed.endDate || "2027-05-31";
+          state = {
+            ...baseState(),
+            ...parsed,
+            startDate: start,
+            endDate: end,
+            chapters: defaultChapters,
+            plan: parsed.plan || makePlan(start, end),
+            timer: { ...defaultTimer(), ...(parsed.timer || {}) }
+          };
+          save();
+          showNotice("backupNotice", "Backup restored into fresh workspace.");
+        } catch (err) {
+          showNotice("backupNotice", "Invalid JSON backup file.", true);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    }
+
+    function toggleResetConfirm(show) {
+      const box = document.getElementById("resetConfirmBox");
+      if (box) box.classList.toggle("hidden", !show);
+    }
+
+    function resetAll() {
+      stopTimerLoop();
+      try {
+        localStorage.removeItem(STORE);
+        LEGACY_KEYS.forEach((k) => localStorage.removeItem(k));
+      } catch (err) {}
+      state = baseState();
+      toggleResetConfirm(false);
+      save();
+      showNotice("backupNotice", "Fresh workspace reset complete.");
+    }
+
+    function renderAll() {
+      renderHeader();
+      renderDashboard();
+      renderPlanner();
+      renderSyllabus();
+      renderTests();
+      renderCheckins();
+      renderTimer();
+
+      const setIfIdle = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && document.activeElement !== el) el.value = val || "";
+      };
+      setIfIdle("jeeDate", state.jeeDate);
+      setIfIdle("boardDate", state.boardDate);
+      setIfIdle("cuetDate", state.cuetDate);
+      setIfIdle("startDate", state.startDate);
+      setIfIdle("endDate", state.endDate);
+      setIfIdle("phase2Date", state.phase2Date);
+    }
+
+    if (state.timer.isRunning) {
+      ensureTimerLoop();
+      tickTimer();
+    }
+    renderAll();
+  </script>
+</body>
+</html>
